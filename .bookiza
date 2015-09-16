@@ -1,0 +1,110 @@
+# -------------------------------------------------
+#                BOOK WRITERS
+# -------------------------------------------------
+
+bookiza() {
+  6   # Validate if arguments passed
+  7   if [[ $# -eq 0 ]] ; then
+  8     echo "No arguments supplied"
+  9     echo "Try the following command: $ book My-Test-Book 10"
+ 10     return
+ 11   fi
+ 12 
+ 13   # Create project and sub-directories
+ 14   mkdir -p "$1" && cd "$1" && touch README.md license.txt && mkdir "trash" "    cover" "templates" "images" "views" || re    turn $?
+ 15 
+ 16   # CD into views to generate pages
+ 17   cd "views"
+ 18 
+ 19   if [[ $2 -eq 0 ]] ; then
+ 20     pages=4
+ 21   else
+ 22     pages="$2"
+ 23   fi
+ 24   p=0
+ 25   while [ "$p" -lt "$pages" ]; do
+ 26     p=$((p+1))
+ 27     mkdir -p "page-$p"
+ 28     cd "page-$p"
+ 29     touch "body.html"
+ 30     touch "style.css"
+ 31     echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css
+ 32     cd ".."
+ 33   done
+ 34   cd ".."
+ 35   echo "# $1" >> README.md
+ 36   git init
+ 37   git add . -A
+ 38   git commit -m "First commit"
+ 39   #echo "Your project is ready with '$pages' blank pages laid out in /views folder."
+ 40   echo " Add origin URL from your repository to push changes."
+ 41   read repo_url
+ 42   git remote add origin "$repo_url"
+ 43   git push -u origin master
+ 44 }
+
+
+
+appendPage() {
+  cd "views"
+  p=1
+  until [ ! -d "page-$p"  ]; do
+    p=$((p+1))
+  done
+
+  q=0
+  while [ "$q" -lt "$1" ]; do
+    mkdir -p "page-$((p+q))"
+    cd "page-$((p+q))"
+
+    touch "body.html"
+    touch "style.css"
+    q=$((q+1))
+    cd ".."
+  done
+}
+
+insertPage() {
+  cd "views"
+  p="$1"
+  if [ -d "page-$p"  ]; then
+    m=1
+    until [ ! -d "page-$m"  ]; do
+      m=$((m+1))
+    done
+
+    q="$m"
+    while [ "$q" -ge "$p" ]; do
+      mv "page-$((q))" "page-$((q+2))"
+      q=$((q-1))
+    done
+
+    q=0
+    while [ "$q" -lt "2" ]; do
+      mkdir -p "page-$((p+q))"
+      cd "page-$((p+q))"
+
+      touch "body.html"
+      touch "style.css"
+      q=$((q+1))
+      cd ".."
+    done
+  fi
+}
+
+deletePage() {
+  cd "views"
+  p="$1"
+  if [ -d "page-$p"  ]; then
+    mv "page-$p" "../trash/page-$p"
+
+    m="$1"
+    m=$((m+1))
+
+    until [ ! -d "page-$m"  ]; do
+
+      mv "page-$((m))" "page-$((m-1))"
+      m=$((m+1))
+    done
+  fi
+}
