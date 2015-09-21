@@ -6,19 +6,412 @@
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
 
-# Include modules
-for file in ~/modules/.{path, init, new, insert, add, remove, length, server, check, update, help}; do
+# TODO: Split the methods below into logical files and include alongside `$PATH`.
+for file in ~/bookiza/.{path}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
 
+# ---------- BOOKIZA INITIALIZER --------- #
+
+
+bookiza() {
+  case "$1" in
+    new)
+      new "$@"
+      ;;         
+    insert)
+      insert "$@"
+      ;;         
+    add)
+      add "$@"
+      ;;             
+    remove)
+      remove "$@"
+      ;;
+    length)
+      cd "manuscript"
+      getLength
+      cd ".."
+      ;;
+    server)
+      stop
+      serve
+      ;;         
+    check)
+      check
+      ;;
+    -v)
+      version
+      ;;
+    update)
+      update
+      ;;   
+    help)
+      help      
+      ;;         
+    *)
+      echo $"Usage: $0 { new | insert | length | remove | server | check | help}"
+      echo $"Try: $ bookiza help"
+  esac
+}
+
+#--------- NEW PROJECT ---------#
+
+
+new() {
+  args=("$@")
+
+  echo Number of arguments passed =: $#
+  echo "Type: ${args[0]}, Project: ${args[1]} Booklength: ${args[2]}"
+  
+
+  PROJECTNAME=${args[1]}
+
+  if [ ${PROJECTNAME:+x} ] ; then
+    echo "Proceeding ........"
+  else 
+    echo "Halting ..........."
+    validateProjectName $PROJECTNAME
+  fi
+  
+  setupProject $PROJECTNAME
+
+  
+  BOOKLENGTH=${args[2]}
+
+  if [ ${BOOKLENGTH:+x} ] ; then
+    echo "Proceeding ........"
+    validateNumeric $BOOKLENGTH
+  else 
+    echo "Halting ..........."
+    validateBookLength $BOOKLENGTH
+  fi
+    
+  createPages $BOOKLENGTH
+
+  setupGitRepository 
+}
+
+###### Validations ######
+
+validateProjectName() {
+  if [[ $# -eq 0 ]] ; then
+    echo "Project name not supplied. (HINT: My-New-Book-Name i.e. use hypens!)"
+    read PROJECTNAME
+    if [ ${PROJECTNAME:+x} ] ; then
+      return 
+    else 
+      echo "Halting ..."
+      validateProjectName $PROJECTNAME
+    fi
+    exit
+  fi  
+}
+
+validateBookLength() {
+  if [[ $# -eq 0 ]] ; then
+    echo "Book length not supplied. (HINT: Must be even number i.e. 6, 12, 24!)"
+    read BOOKLENGTH
+    if [ ${BOOKLENGTH:+x} ] ; then
+      validateNumeric $BOOKLENGTH
+      return $BOOKLENGTH
+    else 
+      echo "Halting ..."
+      validateBookLength $BOOKLENGTH
+    fi
+    exit
+  fi  
+}
+
+validateNumeric() {
+  BOOKLENGTH=$1
+  reg='^[0-9]+$'
+  if ! [[ $BOOKLENGTH =~ $reg ]] ; then
+    echo "Error: Argument not a number, try again:" >&2;
+    read BOOKLENGTH
+    validateNumeric $BOOKLENGTH
+  else
+    validateEven $BOOKLENGTH
+  fi
+}
+
+validateEven() {
+  BOOKLENGTH=$1
+  echo "Testing if ${BOOKLENGTH} is even now"
+  if [ $((BOOKLENGTH%2)) -eq 0 ] ; then
+    echo "Ok ....... Proceeding"
+    echo "Setting book length = $BOOKLENGTH"
+    return $BOOKLENGTH
+  else
+    echo "Error: Not an even number, try again:" >&2;
+    read BOOKLENGTH
+    validateEven $BOOKLENGTH
+  fi  
+}
+
+setupProject() {
+  echo "Setting up $PROJECTNAME now ..."
+  mkdir -p "$1" && cd "$1" && touch README.md license.txt .gitignore && mkdir "trash" "cover" "templates" "images" "manuscript" || return $?
+  echo "# $1" >> README.md
+  cd "templates" && touch template.html head.html template.css template.js && cd ".."
+}
+
+createPages() {
+  PAGES=$1
+  cd "manuscript"
+  p=0
+  while [ "$p" -lt "$PAGES" ]; do
+    p=$((p+1))
+    mkdir -p "page-$p"
+    cd "page-$p"
+    touch "body.html"
+    touch "style.css"
+    echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css
+    cd ".."
+  done  
+  echo "Done!" && cd ".." #Head back to root
+}
+
+setupGitRepository() {
+  git init
+  git add . -A
+  git commit -am "First commit: Setup new book project" --quiet
+  echo "Provide GITHUB URL:"
+  read REPO_URL
+  if [ ${REPO_URL:+x} ] ; then
+    git remote add origin "$REPO_URL"
+    git push -u origin master
+    echo "Project ready! Stacked ${PAGES} blank pages inside /manuscript correctly."   
+  else
+    echo "Error: Argument not supplied, try again!"
+    read REPO_URL
+  fi
+}
+
+# ---------- INSERT PAGES --------- #
+
+insert() {
+  args=("$@")
+
+  echo Number of arguments passed = $#
+  echo Type: ${args[0]}, INSERT_AT: "${args[1]}", [ No. of pages: "${args[2]}"]
+
+  INSERT_AT=${args[1]}
+
+  if [ ${INSERT_AT:+x} ] ; then
+    echo "Ok ........ Proceeding"
+    validateNumericalInsertAt $INSERT_AT
+  else 
+    echo "Halting ..........."
+    validateInsertAt $INSERT_AT
+  fi
+  
+  NUMBER_OF_PAGES=${args[2]}
+
+  if [ ${NUMBER_OF_PAGES:+x} ] ; then
+    validateNumberOfPages $NUMBER_OF_PAGES
+  else
+    NUMBER_OF_PAGES=2
+  fi
+
+  generatePages $INSERT_AT $NUMBER_OF_PAGES
+
+  echo "DONE:)"
+}
+
+validateInsertAt() {
+  if [[ $# -eq 0 ]] ; then
+    echo "INSERT_AT: not supplied. (HINT: Must be integer!)"
+    read INSERT_AT
+    if [ ${INSERT_AT:+x} ] ; then
+      validateNumericalInsertAt $INSERT_AT
+      return $INSERT_AT
+    else 
+      echo "Halting ..."
+      validateInsertAt $INSERT_AT
+    fi
+    exit
+  fi  
+}
+
+validateNumericalInsertAt() {
+  INSERT_AT=$1
+  reg='^[0-9]+$'
+  if ! [[ $INSERT_AT =~ $reg ]] ; then
+    echo "Error: Argument not a valid number, try again:" >&2;
+    read INSERT_AT
+    validateNumericalInsertAt $INSERT_AT
+  else
+    return $INSERT_AT
+  fi
+}
+
+validateNumberOfPages() {
+  NUMBER_OF_PAGES=$1
+  reg='^[0-9]+$'
+  if ! [[ $NUMBER_OF_PAGES =~ $reg ]] ; then
+    echo "Error: Argument not a valid number, try again:" >&2;
+    read NUMBER_OF_PAGES
+    validateNumberOfPages $NUMBER_OF_PAGES
+  else
+    return $NUMBER_OF_PAGES
+  fi
+}
+
+generatePages() {
+  args=("$@")
+  echo INSERT_AT: "${args[0]}", [ Number of pages: "${args[1]}" ]
+
+  p="$INSERT_AT"
+
+  cd "manuscript"
+
+  if [ -d "page-$p"  ]; then
+    getLength
+    q="$BOOKLENGTH"
+    while [ "$q" -ge "$p" ]; do
+      mv "page-$((q))" "page-$((q+NUMBER_OF_PAGES))"
+      q=$((q-1))
+    done
+
+    q=0
+    while [ "$q" -lt "$NUMBER_OF_PAGES" ]; do
+      mkdir -p "page-$((p+q))"
+      cd "page-$((p+q))"
+
+      touch "body.html"
+      touch "style.css"
+      q=$((q+1))
+      cd ".."
+    done
+  fi
+  cd ".."
+  getLength
+}
+
+# ---------- ADD PAGES --------- #
+
+add() {
+  args=("$@")
+
+  echo Number of arguments passed =: $#
+  echo "Type: ${args[0]}, Number of pages: ${args[1]}"
+  cd "manuscript"
+ 
+  NUMBER_OF_PAGES=${args[1]}
+
+  if [ ${NUMBER_OF_PAGES:+x} ] ; then
+    validateNumberOfPages $NUMBER_OF_PAGES
+  else
+    NUMBER_OF_PAGES=2
+  fi
+
+  getLength
+    
+  echo "SHOUT AT ME = ${NUMBER_OF_PAGES}"
+
+  q=1
+  while [ "$q" -le "$NUMBER_OF_PAGES" ]; do
+    mkdir -p "page-$((BOOKLENGTH+q))"
+    cd "page-$((BOOKLENGTH+q))"
+    touch "body.html"
+    touch "style.css"
+    q=$((q+1))
+    cd ".."
+  done
+  getLength
+  cd ".."
+}
+
+remove() {
+  args=("$@")
+
+  echo Number of arguments passed =: $#
+  echo "Type: ${args[0]}, Page number: ${args[1]}"
+
+  cd "manuscript"
+  PAGE_NO="${args[1]}"
+
+  if [ ${PAGE_NO:+x} ] ; then
+    trashPage $PAGE_NO
+  else
+    validatePageNo $PAGE_NO
+  fi
+
+  getLength
+  cd ".."
+}
+
+trashPage() {
+  args=("$@")
+  echo PAGE_NO: "${args[0]}", [ Blah: "${args[1]}" ]
+
+  PAGE_NO="${args[0]}"
+
+  if [ -d "page-$PAGE_NO"  ]; then
+    mv "page-$PAGE_NO" "../trash/page-$PAGE_NO"
+
+    m="$PAGE_NO"
+    echo "Starting directory reduction"
+    m=$((m+1))
+
+    until [ ! -d "page-$m"  ]; do
+
+      mv "page-$((m))" "page-$((m-1))"
+      m=$((m+1))
+    done
+  fi
+
+}
+
+# ---------- BOOKLENGTH --------- #
+
+getLength() {
+  BOOKLENGTH=1
+  echo "Measuring book length ..."
+  until [ ! -d "page-$((BOOKLENGTH+1))"  ]; do
+    BOOKLENGTH=$((BOOKLENGTH+1))
+  done
+  echo Book length is: $BOOKLENGTH pages
+  return
+}
+
+# ---------- LOCAL SERVER --------- #
+
+serve() {
+  echo "Server node server here?"
+}
+
+# ---------- LOCAL SERVER --------- #
+
+check() { 
+  echo "Check if project has even number of pages" 
+}
 
 # ---------- VERSION --------- #
 
 version() {
   
-  echo "
-        Bookiza Version 0.1.0
-        "
+  echo "Bookiza Version 0.1.0
+        $ bookiza update # to update to latest version.
+        $ bookiza help   # for help"
 }
+
+# ---------- UPDATE SCRIPT --------- #
+
+update() {
+  
+  echo "
+        Bookiza Version 0.1.0 at https://github.com/bubblin/bookiza
+        $ bookiza update        # to update to latest version.
+        $ bookiza Help          # for help"
+}
+
+
+# ---------- LOCAL SERVER --------- #
+
+help() {
+  echo "Help guide here"  
+} 
 
