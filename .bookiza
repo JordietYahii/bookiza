@@ -6,8 +6,8 @@
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
 
-# TODO: Split the methods below into logical files and include alongside `$PATH`.
-for file in ~/bookiza-scripts/.{path, init, new, insert, add, remove, length, server, check, update, help}; do
+# Include modules
+for file in ~/modules/.{path, init, new, insert, add, remove, length, server, check, update, help}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
