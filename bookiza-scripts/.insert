@@ -1,0 +1,100 @@
+# ---------- INSERT PAGES --------- #
+
+insert() {
+  args=("$@")
+
+  echo Number of arguments passed = $#
+  echo Type: ${args[0]}, INSERT_AT: "${args[1]}", [ No. of pages: "${args[2]}"]
+
+  INSERT_AT=${args[1]}
+
+  if [ ${INSERT_AT:+x} ] ; then
+    echo "Ok ........ Proceeding"
+    validateNumericalInsertAt $INSERT_AT
+  else 
+    echo "Halting ..........."
+    validateInsertAt $INSERT_AT
+  fi
+  
+  NUMBER_OF_PAGES=${args[2]}
+
+  if [ ${NUMBER_OF_PAGES:+x} ] ; then
+    validateNumberOfPages $NUMBER_OF_PAGES
+  else
+    NUMBER_OF_PAGES=2
+  fi
+
+  generatePages $INSERT_AT $NUMBER_OF_PAGES
+
+  echo "DONE:)"
+}
+
+validateInsertAt() {
+  if [[ $# -eq 0 ]] ; then
+    echo "INSERT_AT: not supplied. (HINT: Must be integer!)"
+    read INSERT_AT
+    if [ ${INSERT_AT:+x} ] ; then
+      validateNumericalInsertAt $INSERT_AT
+      return $INSERT_AT
+    else 
+      echo "Halting ..."
+      validateInsertAt $INSERT_AT
+    fi
+    exit
+  fi  
+}
+
+validateNumericalInsertAt() {
+  INSERT_AT=$1
+  reg='^[0-9]+$'
+  if ! [[ $INSERT_AT =~ $reg ]] ; then
+    echo "Error: Argument not a valid number, try again:" >&2;
+    read INSERT_AT
+    validateNumericalInsertAt $INSERT_AT
+  else
+    return $INSERT_AT
+  fi
+}
+
+validateNumberOfPages() {
+  NUMBER_OF_PAGES=$1
+  reg='^[0-9]+$'
+  if ! [[ $NUMBER_OF_PAGES =~ $reg ]] ; then
+    echo "Error: Argument not a valid number, try again:" >&2;
+    read NUMBER_OF_PAGES
+    validateNumberOfPages $NUMBER_OF_PAGES
+  else
+    return $NUMBER_OF_PAGES
+  fi
+}
+
+generatePages() {
+  args=("$@")
+  echo INSERT_AT: "${args[0]}", [ Number of pages: "${args[1]}" ]
+
+  p="$INSERT_AT"
+
+  cd "manuscript"
+
+  if [ -d "page-$p"  ]; then
+    getLength
+    q="$BOOKLENGTH"
+    while [ "$q" -ge "$p" ]; do
+      mv "page-$((q))" "page-$((q+NUMBER_OF_PAGES))"
+      q=$((q-1))
+    done
+
+    q=0
+    while [ "$q" -lt "$NUMBER_OF_PAGES" ]; do
+      mkdir -p "page-$((p+q))"
+      cd "page-$((p+q))"
+
+      touch "body.html"
+      touch "style.css"
+      q=$((q+1))
+      cd ".."
+    done
+  fi
+  cd ".."
+  getLength
+}

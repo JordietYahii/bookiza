@@ -1,0 +1,6 @@
+# ---------- UPDATE SCRIPT --------- #
+
+update() {
+  
+  echo "`git update` plugin over here"
+}

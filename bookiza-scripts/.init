@@ -1,0 +1,43 @@
+# ---------- BOOKIZA INITIALIZER --------- #
+
+bookiza() {
+  case "$1" in
+    new)
+      new "$@"
+      ;;         
+    insert)
+      insert "$@"
+      ;;         
+    add)
+      add "$@"
+      ;;             
+    remove)
+      remove "$@"
+      ;;
+    length)
+      cd "manuscript"
+      getLength
+      cd ".."
+      ;;
+    server)
+      stop
+      serve
+      ;;         
+    check)
+      check
+      ;;
+    -v)
+      version
+      ;;
+    update)
+      update
+      ;;   
+    help)
+      help      
+      ;;         
+    *)
+      echo $"Usage: $0 { new | insert | length | remove | server | check | help}"
+      echo $"Try: $ bookiza help"
+  esac
+}
+

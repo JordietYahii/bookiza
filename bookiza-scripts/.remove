@@ -1,0 +1,45 @@
+# ---------- REMOVE PAGES --------- #
+
+remove() {
+  args=("$@")
+
+  echo Number of arguments passed =: $#
+  echo "Type: ${args[0]}, Page number: ${args[1]}"
+
+  cd "manuscript"
+  PAGE_NO="${args[1]}"
+
+  if [ ${PAGE_NO:+x} ] ; then
+    trashPage $PAGE_NO
+  else
+    validatePageNo $PAGE_NO
+  fi
+
+  getLength
+  cd ".."
+}
+
+
+trashPage() {
+  args=("$@")
+  echo PAGE_NO: "${args[0]}", [ Blah: "${args[1]}" ]
+
+  PAGE_NO="${args[0]}"
+
+  if [ -d "page-$PAGE_NO"  ]; then
+    mv "page-$PAGE_NO" "../trash/page-$PAGE_NO"
+
+    m="$PAGE_NO"
+    echo "Starting directory reduction"
+    m=$((m+1))
+
+    until [ ! -d "page-$m"  ]; do
+
+      mv "page-$((m))" "page-$((m-1))"
+      m=$((m+1))
+    done
+  fi
+
+}
+
+

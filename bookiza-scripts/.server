@@ -1,0 +1,5 @@
+# ---------- LOCAL SERVER --------- #
+
+serve() {
+  echo "App server here"
+}

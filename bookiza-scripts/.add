@@ -1,0 +1,33 @@
+# ---------- ADD PAGES --------- #
+
+add() {
+  args=("$@")
+
+  echo Number of arguments passed =: $#
+  echo "Type: ${args[0]}, Number of pages: ${args[1]}"
+  cd "manuscript"
+ 
+  NUMBER_OF_PAGES=${args[1]}
+
+  if [ ${NUMBER_OF_PAGES:+x} ] ; then
+    validateNumberOfPages $NUMBER_OF_PAGES
+  else
+    NUMBER_OF_PAGES=2
+  fi
+
+  getLength
+    
+  echo "SHOUT AT ME = ${NUMBER_OF_PAGES}"
+
+  q=1
+  while [ "$q" -le "$NUMBER_OF_PAGES" ]; do
+    mkdir -p "page-$((BOOKLENGTH+q))"
+    cd "page-$((BOOKLENGTH+q))"
+    touch "body.html"
+    touch "style.css"
+    q=$((q+1))
+    cd ".."
+  done
+  getLength
+  cd ".."
+}
