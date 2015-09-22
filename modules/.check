@@ -1,5 +1,0 @@
-# ---------- Check project --------- #
-
-check() { 
-  echo "Check if project has even number of pages" 
-}
