@@ -384,10 +384,7 @@ check() {
 # ---------- VERSION --------- #
 
 version() {
-  
-  echo "Bookiza Version 0.1.0
-        $ bookiza update # to update to latest version.
-        $ bookiza help   # for help"
+  echo "bookiza version: 0.1.0"
 }
 
 # ---------- UPDATE SCRIPT --------- #
