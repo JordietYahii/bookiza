@@ -3,7 +3,7 @@
 # -------------------------------------------------#
 
 
-# ---------- BOOKIZA INITIALIZER --------- #
+# ---------- BOOKIZA --------- #
 
 
 bookiza() {
@@ -384,14 +384,16 @@ check() {
 # ---------- VERSION --------- #
 
 version() {
-  echo "bookiza version: 0.1.0"
+  echo "bookiza 0.1.0"
 }
 
 # ---------- UPDATE SCRIPT --------- #
 
 update() {
   cd ~/.bookiza
-  git pull  
+  git pull
+
+  version
 }
 
 
