@@ -25,13 +25,6 @@ bookiza() {
       getLength
       cd ".."
       ;;
-    server)
-      stop
-      serve
-      ;;         
-    check)
-      check
-      ;;
     -v)
       version
       ;;
@@ -42,7 +35,7 @@ bookiza() {
       help      
       ;;         
     *)
-      echo $"Usage: $0 { new | insert | length | remove | server | check | help}"
+      echo $"Usage: $0 { new | insert | length | remove | update | help | -v }"
       echo $"Try: $ bookiza help"
   esac
 }
@@ -384,7 +377,7 @@ check() {
 # ---------- VERSION --------- #
 
 version() {
-  echo "bookiza 0.1.0"
+  echo "bookiza 0.0.2"
 }
 
 # ---------- UPDATE SCRIPT --------- #
