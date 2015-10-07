@@ -5,7 +5,6 @@
 
 # ---------- BOOKIZA --------- #
 
-
 bookiza() {
   case "$1" in
     new)
@@ -21,9 +20,7 @@ bookiza() {
       remove "$@"
       ;;
     length)
-      cd "manuscript"
-      getLength
-      cd ".."
+      length
       ;;
     -v)
       version
@@ -31,11 +28,15 @@ bookiza() {
     update)
       update
       ;;   
+    server)
+      start
+      stop
+      ;;   
     help)
       help      
       ;;         
     *)
-      echo $"Usage: $0 { new | insert | length | remove | update | help | -v }"
+      echo $"Usage: $0 { new | insert | length | remove | update | push | server | help | -v }"
       echo $"Try: $ bookiza help"
   esac
 }
@@ -351,6 +352,9 @@ trashPage() {
 }
 
 # ---------- BOOKLENGTH --------- #
+length() {
+  (cd manuscript; getLength)
+}
 
 getLength() {
   BOOKLENGTH=1
@@ -364,7 +368,7 @@ getLength() {
 
 # ---------- LOCAL SERVER --------- #
 
-serve() {
+server() {
   echo "Server node server here?"
 }
 
