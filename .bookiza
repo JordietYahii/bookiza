@@ -294,10 +294,8 @@ add() {
     NUMBER_OF_PAGES=2
   fi
 
-  getLength
+  (length; echo "Number of pages = ${NUMBER_OF_PAGES}")
     
-  echo "SHOUT AT ME = ${NUMBER_OF_PAGES}"
-
   q=1
   while [ "$q" -le "$NUMBER_OF_PAGES" ]; do
     mkdir -p "page-$((BOOKLENGTH+q))"
@@ -307,10 +305,8 @@ add() {
     q=$((q+1))
     cd ".."
   done
-
-  cd ".."
-  getLength
-  echo 'Done! Check with $ bookiza length'
+  
+  (length; "Added ${NUMBER_OF_PAGES} pages!")
 }
 
 remove() {
