@@ -28,6 +28,9 @@ bookiza() {
     push)
       push
       ;;        
+    publish)
+      publish
+      ;;        
     server)
       server "$@"
       ;;   
@@ -59,23 +62,23 @@ new() {
     echo "Proceeding ........"
   else 
     echo "Halting ..........."
-    validateProjectName $PROJECTNAME
+    validateProjectName "$PROJECTNAME"
   fi
   
-  setupProject $PROJECTNAME
+  setupProject "$PROJECTNAME"
 
   
   BOOKLENGTH=${args[2]}
 
   if [ ${BOOKLENGTH:+x} ] ; then
     echo "Proceeding ........"
-    validateNumeric $BOOKLENGTH
+    validateNumeric "$BOOKLENGTH"
   else 
     echo "Halting ..........."
-    validateBookLength $BOOKLENGTH
+    validateBookLength "$BOOKLENGTH"
   fi
     
-  createPages $BOOKLENGTH
+  createPages "$BOOKLENGTH"
 
   setupGitRepository 
 }
@@ -85,12 +88,12 @@ new() {
 validateProjectName() {
   if [[ $# -eq 0 ]] ; then
     echo "Project name not supplied. (HINT: My-New-Book-Name i.e. use hypens!)"
-    read PROJECTNAME
+    read -r PROJECTNAME
     if [ ${PROJECTNAME:+x} ] ; then
       return 
     else 
       echo "Halting ..."
-      validateProjectName $PROJECTNAME
+      validateProjectName "$PROJECTNAME"
     fi
     exit
   fi  
@@ -99,9 +102,9 @@ validateProjectName() {
 validateBookLength() {
   if [[ $# -eq 0 ]] ; then
     echo "Book length not supplied. (HINT: Must be even number i.e. 6, 12, 24!)"
-    read BOOKLENGTH
+    read -r BOOKLENGTH
     if [ ${BOOKLENGTH:+x} ] ; then
-      validateNumeric $BOOKLENGTH
+      validateNumeric "$BOOKLENGTH"
       return $BOOKLENGTH
     else 
       echo "Halting ..."
@@ -388,9 +391,32 @@ update() {
   (cd ~/.bookiza; git pull; version)
 }
 
-# --------- PUSH 2 DEPLOY ----------#
+# --------- PUSH TO REPO ----------#
 
 push() {
+  echo "Message:"
+  readValidGitMessage "$MESSAGE"
+  git commit -am "${MESSAGE}"
+  git push
+}
+
+
+isValidGitMessage() {
+  test "$1"
+}
+
+readValidGitMessage() {
+  MESSAGE=$1
+  while ! isValidGitMessage "$MESSAGE"; do
+    echo "Please enter a commit message (Example: Pushing page-10 to page-14 to the book!)"
+    read MESSAGE
+  done
+}
+
+
+# --------- PUBLISH TO BUBBLIN ----------#
+
+publish() {
   echo "$ git push"
 }
 
