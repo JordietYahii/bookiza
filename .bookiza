@@ -295,8 +295,14 @@ add() {
 
   (length; echo "Number of pages = ${NUMBER_OF_PAGES}")
 
-  cd "manuscript"
- 
+  (cd manuscript; addtostack)
+   
+  (length; "Added ${NUMBER_OF_PAGES} pages!")
+}
+
+
+addtostack() {
+  echo "Shout the book length again: ${BOOKLENGTH}"
 
   q=1
   while [ "$q" -le "$NUMBER_OF_PAGES" ]; do
@@ -306,11 +312,11 @@ add() {
     touch "style.css"
     q=$((q+1))
     cd ".."
-  done
-  
-  cd ".."
-  (length; "Added ${NUMBER_OF_PAGES} pages!")
+  done  
+  echo "Finished adding pages to the stack!"
 }
+
+
 
 remove() {
   args=("$@")
