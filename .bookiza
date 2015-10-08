@@ -411,7 +411,7 @@ isValidGitMessage() {
 readValidGitMessage() {
   MESSAGE=$1
   while ! isValidGitMessage "$MESSAGE"; do
-    echo "Message:"
+    echo -e "Message: \c"
     read MESSAGE
   done
 }
