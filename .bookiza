@@ -359,7 +359,7 @@ length() {
   if [ -d manuscript/ ] ; then
     (cd manuscript; getLength)
   else 
-    echo "Did not find the manuscript"
+    echo "Manuscript not found"
   fi
 }
 
@@ -396,9 +396,8 @@ server() {
 } 
 
 
-
 help() {
-  echo "Help guide here"  
+  echo $"Usage: $0 { new | insert | length | remove | update | push | server | help | -v }"
 } 
 
 
