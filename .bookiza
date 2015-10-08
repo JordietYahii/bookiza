@@ -68,10 +68,9 @@ new() {
 
   echo "${BOOKLENGTH}"
   
-  return 
-      
   (cd manuscript || exit; createPages "$BOOKLENGTH")
 
+  return 
   setupGit
 }
 
@@ -99,7 +98,6 @@ setupProject() {
 
 isValidBookLength() {
   test "$1"
-  echo $?
 }
 
 readValidBookLength() {
