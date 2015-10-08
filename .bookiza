@@ -86,7 +86,7 @@ isValidProjectName() {
 readValidProjectName() {
   PROJECTNAME=$1
   while ! isValidProjectName "$PROJECTNAME"; do
-    echo -e "Project name? (HINT: My-New-Book-Name i.e. use hyphens!) \c"
+    # echo -e "Project name? HINT: My-New-Book-Name i.e. use hyphens! \c"
     read -r PROJECTNAME
   done
 }
@@ -102,7 +102,6 @@ isValidBookLength() {
   test "$1"
 }
 
-
 readValidBookLength() {
   BOOKLENGTH=$1
   while ! isValidBookLength "$BOOKLENGTH"; do
@@ -110,6 +109,10 @@ readValidBookLength() {
     read -r BOOKLENGTH
   done
 }
+
+
+
+
 
 
 
