@@ -96,8 +96,8 @@ setupProject() {
 ## ------ Book length methods ------ ##
 
 isValidBookLength() {
-  BOOKLENGTH=$1
-  isBookLengthNumeric "$BOOKLENGTH"
+  test "$1"
+  echo $?
 }
 
 readValidBookLength() {
@@ -126,16 +126,6 @@ isBookLengthEvenNumber() {
   else
     return 1
   fi  
-}
-
-## Unused for now ##
-isParamValid() {
-  PARAM=$1
-  if [[ $# -eq 0 ]] ; then
-    return 0
-  else 
-    return 1
-  fi
 }
 
 createPages() {
