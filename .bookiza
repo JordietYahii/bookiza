@@ -22,8 +22,8 @@ bookiza() {
     length)
       length
       ;;
-    update)
-      update
+    status)
+      status
       ;;
     push)
       push
@@ -37,10 +37,12 @@ bookiza() {
     help)
       help      
       ;;         
+    update)
+      update
+      ;;
     -v)
       version
       ;;
-
     *)
       echo $"Usage: $0 { new | insert | length | remove | update | push | server | help | -v }"
       echo $"Try: $ bookiza help"
@@ -323,6 +325,7 @@ addtostack() {
   echo "Finished adding pages to the stack!"
 }
 
+# --------- REMOVE PAGE_No ----------#
 
 
 remove() {
@@ -339,7 +342,6 @@ remove() {
   else
     validatePageNo $PAGE_NO
   fi
-
   getLength
   cd ".."
 }
@@ -367,11 +369,12 @@ trashPage() {
 }
 
 # ---------- BOOKLENGTH --------- #
+
 length() {
   if [ -d manuscript/ ] ; then
     (cd manuscript; getLength)
   else 
-    echo "Manuscript not found"
+    echo "Manuscript not found, probably not in project root!"
   fi
 }
 
@@ -385,11 +388,12 @@ getLength() {
   return
 }
 
-# ---------- UPDATE SCRIPT --------- #
+# --------- PROJECT STATUS ----------#
 
-update() {
-  (cd ~/.bookiza; git pull; version)
+status() {
+  git status
 }
+
 
 # --------- PUSH TO REPO ----------#
 
@@ -413,13 +417,11 @@ readValidGitMessage() {
   done
 }
 
-
 # --------- PUBLISH TO BUBBLIN ----------#
 
 publish() {
-  echo "$ git push"
+  echo "# TODO: To add 'publish' method to substrate on https://bubbl.in "
 }
-
 
 # ---------- LOCAL SERVER --------- #
 
@@ -430,11 +432,18 @@ server() {
   # handle wrong inputs or no inputs
 } 
 
+# --------- FRAMEWORK GUIDE --------#
 
 help() {
   echo $"Usage: $0 { new | insert | length | remove | update | push | server | help | -v }"
 } 
 
+
+# ---------- UPDATE SCRIPT --------- #
+
+update() {
+  (cd ~/.bookiza; git pull; version)
+}
 
 # ---------- VERSION --------- #
 
