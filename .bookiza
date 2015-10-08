@@ -431,7 +431,7 @@ readValidGitMessage() {
   MESSAGE=$1
   while ! isValidGitMessage "$MESSAGE"; do
     echo -e "Message: \c"
-    read MESSAGE
+    read -r MESSAGE
   done
 }
 
