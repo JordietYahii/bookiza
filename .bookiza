@@ -123,7 +123,9 @@ isBookLengthNumeric() {
 }
 
 isBookLengthEvenNumber() {
+  echo "I GOT HERE 2!"
   BOOKLENGTH=$1
+  echo "${BOOKLENGTH}"
   if [ $((BOOKLENGTH%2)) -eq 0 ] ; then
     return 0
   else
