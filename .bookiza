@@ -287,17 +287,17 @@ add() {
 
   NUMBER_OF_PAGES=${args[1]}
 
-  (length; echo "Number of pages = ${NUMBER_OF_PAGES}")
-
-  cd "manuscript"
- 
   if [ ${NUMBER_OF_PAGES:+x} ] ; then
     validateNumberOfPages $NUMBER_OF_PAGES
   else
     NUMBER_OF_PAGES=2
   fi
 
-    
+  (length; echo "Number of pages = ${NUMBER_OF_PAGES}")
+
+  cd "manuscript"
+ 
+
   q=1
   while [ "$q" -le "$NUMBER_OF_PAGES" ]; do
     mkdir -p "page-$((BOOKLENGTH+q))"
@@ -307,8 +307,8 @@ add() {
     q=$((q+1))
     cd ".."
   done
-  pwd
   
+  cd ".."
   (length; "Added ${NUMBER_OF_PAGES} pages!")
 }
 
