@@ -60,21 +60,9 @@ new() {
 
   readValidProjectName "$PROJECTNAME"
 
-  echo "${PROJECTNAME}"
-
-  return 
-
   setupProject "$PROJECTNAME"
 
-  if [ ${PROJECTNAME:+x} ] ; then
-    setupProject "$PROJECTNAME"      
-  else 
-      
-    validateProjectName "$PROJECTNAME"
-  fi
-  
-  echo "STOPPING here!"  
-  return
+  return 
 
   BOOKLENGTH=${args[2]}
 
@@ -102,26 +90,17 @@ isValidProjectName() {
 readValidProjectName() {
   PROJECTNAME=$1
   while ! isValidProjectName "$PROJECTNAME"; do
-    echo -e "Project name (HINT: My-New-Book-Name i.e. use hyphens!) \c"
-    read PROJECTNAME
+    echo -e "Project name? (HINT: My-New-Book-Name i.e. use hyphens!) \c"
+    read -r PROJECTNAME
   done
 }
 
-
-validateProjectName() {
-  if [[ $# -eq 0 ]] ; then
-    echo "Project name not supplied. (HINT: My-New-Book-Name i.e. use hypens!)"
-    read -r PROJECTNAME
-    if [ ${PROJECTNAME:+x} ] ; then
-      return 
-    else 
-      echo "Halting ..."
-      validateProjectName "$PROJECTNAME"
-    fi
-    exit
-  fi  
+setupProject() {
+  echo "Setting up $PROJECTNAME now ..."
+  mkdir -p "$1" && cd "$1" && touch README.md license.txt .gitignore && mkdir "trash" "cover" "templates" "images" "manuscript" || return $?
+  echo "# $1" >> README.md
+  cd "templates" && touch template.html head.html template.css template.js && cd ".."
 }
-
 
 
 
@@ -170,12 +149,6 @@ validateEven() {
   fi  
 }
 
-setupProject() {
-  echo "Setting up $PROJECTNAME now ..."
-  mkdir -p "$1" && cd "$1" && touch README.md license.txt .gitignore && mkdir "trash" "cover" "templates" "images" "manuscript" || return $?
-  echo "# $1" >> README.md
-  cd "templates" && touch template.html head.html template.css template.js && cd ".."
-}
 
 createPages() {
   PAGES=$1
