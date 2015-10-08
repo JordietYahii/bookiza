@@ -96,7 +96,7 @@ setupProject() {
 ## ------ Book length methods ------ ##
 
 isValidBookLength() {
-  test "$1" && isBookLengthNumeric "$1" && isBookLengthEvenNumber "$1"
+  return test "$1" && isBookLengthNumeric "$1" && isBookLengthEvenNumber "$1"
 }
 
 readValidBookLength() {
@@ -130,6 +130,8 @@ isBookLengthEvenNumber() {
 
 createPages() {
   PAGES=$1
+  echo "${PAGES}"
+  return
   p=0
   while [ "$p" -lt "$PAGES" ]; do
     p=$((p+1))
