@@ -96,7 +96,7 @@ setupProject() {
 ## ------ Book length methods ------ ##
 
 isValidBookLength() {
-  test "$1" && [ isBookLengthNumeric "$1" ] && [ isBookLengthEvenNumber "$1" ]
+  test "$1" && isBookLengthNumeric $1 && isBookLengthEvenNumber $1
 }
 
 readValidBookLength() {
@@ -110,8 +110,9 @@ readValidBookLength() {
 
 
 isBookLengthNumeric() {
-  BOOKLENGTH=$1
   echo "I GOT HERE!"
+  BOOKLENGTH=$1
+  
   echo "${BOOKLENGTH}"
   reg='^[0-9]+$'
   if ! [[ $BOOKLENGTH =~ $reg ]] ; then
