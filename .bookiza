@@ -97,7 +97,7 @@ setupProject() {
 
 isValidBookLength() {
   echo "I GOT HERE!"
-  test "$1" & test isBookLengthNumeric $1 
+  test "$1" & isBookLengthNumeric $1 
   # & isBookLengthEvenNumber $1 
 }
 
