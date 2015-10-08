@@ -458,5 +458,5 @@ update() {
 # ---------- VERSION --------- #
 
 version() {
-  echo "bookiza 0.0.2"
+  echo "bookiza 0.0.1"
 }
