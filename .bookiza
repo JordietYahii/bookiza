@@ -101,7 +101,7 @@ isValidBookLength() {
 readValidBookLength() {
   BOOKLENGTH=$1
 
-  while ! [ isValidBookLength $BOOKLENGTH && isBookLengthNumeric $BOOKLENGTH ]; do
+  while ! [[ isValidBookLength $BOOKLENGTH && isBookLengthNumeric $BOOKLENGTH ]]; do
     echo -e 'Book length? (HINT: An even number!): \c'
     read -r BOOKLENGTH
   done
