@@ -96,7 +96,11 @@ setupProject() {
 ## ------ Book length methods ------ ##
 
 isValidBookLength() {
-  test "$1" && isBookLengthNumeric $1 && isBookLengthEvenNumber $1
+  if test "$1" && isBookLengthNumeric $1
+  # && isBookLengthEvenNumber $1
+  then return 1
+  else return 0
+  fi
 }
 
 readValidBookLength() {
@@ -116,9 +120,9 @@ isBookLengthNumeric() {
   echo "${BOOKLENGTH}"
   reg='^[0-9]+$'
   if ! [[ $BOOKLENGTH =~ $reg ]] ; then
-    return 0
-  else
     return 1
+  else
+    return 0
   fi
 }
 
