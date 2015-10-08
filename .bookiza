@@ -3,7 +3,7 @@
 # -------------------------------------------------#
 
 
-# ---------- BOOKIZA --------- #
+# ---------- BOOKIZA (main) --------- #
 
 bookiza() {
   case "$1" in
@@ -22,19 +22,22 @@ bookiza() {
     length)
       length
       ;;
-    -v)
-      version
-      ;;
     update)
       update
-      ;;   
+      ;;
+    push)
+      push
+      ;;        
     server)
-      start
-      stop
+      server "$@"
       ;;   
     help)
       help      
       ;;         
+    -v)
+      version
+      ;;
+
     *)
       echo $"Usage: $0 { new | insert | length | remove | update | push | server | help | -v }"
       echo $"Try: $ bookiza help"
@@ -378,12 +381,6 @@ check() {
   echo "Check if project has even number of pages" 
 }
 
-# ---------- VERSION --------- #
-
-version() {
-  echo "bookiza 0.0.2"
-}
-
 # ---------- UPDATE SCRIPT --------- #
 
 update() {
@@ -393,10 +390,31 @@ update() {
   version
 }
 
+# --------- PUSH 2 DEPLOY ----------#
+
+push() {
+  echo "$ git push"
+}
+
 
 # ---------- LOCAL SERVER --------- #
+
+server() {
+  echo "No server yet" 
+  # start
+  # stop
+  # handle wrong inputs or no inputs
+} 
+
+
 
 help() {
   echo "Help guide here"  
 } 
 
+
+# ---------- VERSION --------- #
+
+version() {
+  echo "bookiza 0.0.2"
+}
