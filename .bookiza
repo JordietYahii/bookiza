@@ -55,25 +55,18 @@ new() {
   args=("$@")
 
   echo "Command: $ bookiza ${args[0]}, Projectname: ${args[1]} [Booklength]: ${args[2]}"
-  
-  
-
-  return
-
-
 
   PROJECTNAME=${args[1]}
 
   if [ ${PROJECTNAME:+x} ] ; then
-    echo "Proceeding ........"
+    setupProject "$PROJECTNAME"  
   else 
-    echo "Halting ..........."
     validateProjectName "$PROJECTNAME"
   fi
   
-  setupProject "$PROJECTNAME"
+  echo "STOPPING here!"  
+  return
 
-  
   BOOKLENGTH=${args[2]}
 
   if [ ${BOOKLENGTH:+x} ] ; then
@@ -184,6 +177,17 @@ setupGitRepository() {
     read REPO_URL
   fi
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
