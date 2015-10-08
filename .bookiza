@@ -62,17 +62,13 @@ new() {
 
   setupProject "$PROJECTNAME"
 
-  return 
-
   BOOKLENGTH=${args[2]}
 
-  if [ ${BOOKLENGTH:+x} ] ; then
-    echo "Proceeding ........"
-    validateNumeric "$BOOKLENGTH"
-  else 
-    echo "Halting ..........."
-    validateBookLength "$BOOKLENGTH"
-  fi
+  readValidBookLength "$BOOKLENGTH"
+
+  echo "${BOOKLENGTH}""
+
+  return
     
   createPages "$BOOKLENGTH"
 
@@ -102,8 +98,18 @@ setupProject() {
   cd "templates" && touch template.html head.html template.css template.js && cd ".."
 }
 
+isValidBookLength() {
+  test "$1"
+}
 
 
+readValidBookLength() {
+  BOOKLENGTH=$1
+  while ! isValidBookLength "$BOOKLENGTH"; do
+    echo -e "Book length? (HINT: Must be an even number!) \c"
+    read -r BOOKLENGTH
+  done
+}
 
 
 
