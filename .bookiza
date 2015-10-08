@@ -283,7 +283,7 @@ add() {
   args=("$@")
 
   echo Number of arguments passed =: $#
-  echo "Command: bookiza ${args[0]}, Number of pages: ${args[1]}"
+  echo "Method: $ bookiza ${args[0]}, Requested no. of pages: ${args[1]}"
 
   NUMBER_OF_PAGES=${args[1]}
 
@@ -302,6 +302,10 @@ add() {
 
 
 addtostack() {
+  getLength
+  
+  echo "Requested no = ${NUMBER_OF_PAGES}"
+
   echo "Shout the book length again: ${BOOKLENGTH}"
 
   q=1
