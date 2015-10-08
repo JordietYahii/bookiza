@@ -452,7 +452,7 @@ help() {
 # ---------- UPDATE SCRIPT --------- #
 
 update() {
-  (cd ~/.bookiza; git pull; version)
+  (cd ~/.bookiza; git pull; source ~/.bookiza; version)
 }
 
 # ---------- VERSION --------- #
