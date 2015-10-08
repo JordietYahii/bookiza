@@ -356,7 +356,11 @@ trashPage() {
 
 # ---------- BOOKLENGTH --------- #
 length() {
-  (cd manuscript; getLength)
+  if [ -d manuscript/ ] ; then
+    (cd manuscript; getLength)
+  else 
+    echo "Did not find the manuscript"
+  fi
 }
 
 getLength() {
@@ -369,25 +373,10 @@ getLength() {
   return
 }
 
-# ---------- LOCAL SERVER --------- #
-
-server() {
-  echo "Server node server here?"
-}
-
-# ---------- LOCAL SERVER --------- #
-
-check() { 
-  echo "Check if project has even number of pages" 
-}
-
 # ---------- UPDATE SCRIPT --------- #
 
 update() {
-  cd ~/.bookiza
-  git pull
-
-  version
+  (cd ~/.bookiza; git pull; version)
 }
 
 # --------- PUSH 2 DEPLOY ----------#
