@@ -66,11 +66,10 @@ new() {
 
   readValidBookLength "$BOOKLENGTH"
 
-  echo "${BOOKLENGTH}"
+  return 
   
   (cd manuscript || exit; createPages "$BOOKLENGTH")
 
-  return 
   setupGit
 }
 
@@ -96,8 +95,7 @@ setupProject() {
 ## ------ Book length methods ------ ##
 
 isValidBookLength() {
-  isBookLengthNumeric "$1"  
-  isBookLengthEvenNumber "$1" 
+  test "$1" 
 }
 
 readValidBookLength() {
