@@ -67,12 +67,12 @@ new() {
   readValidBookLength "$BOOKLENGTH"
 
   echo "${BOOKLENGTH}"
+    
+  (cd manuscript || exit; createPages "$BOOKLENGTH")
 
   return
-    
-  createPages "$BOOKLENGTH"
 
-  setupGitRepository 
+  setupGit
 }
 
 ###### Validations ######
@@ -81,7 +81,6 @@ new() {
 isValidProjectName() {
   test "$1"
 }
-
 
 readValidProjectName() {
   PROJECTNAME=$1
@@ -95,13 +94,12 @@ setupProject() {
   echo "Setting up $PROJECTNAME now ..."
   mkdir -p "$1" && cd "$1" && touch README.md license.txt .gitignore && mkdir "trash" "cover" "templates" "images" "manuscript" || return $?
   echo "# $1" >> README.md
-  cd "templates" && touch template.html head.html template.css template.js && cd ".."
+  (cd templates || exit; touch template.html head.html template.css template.js)
 }
 
 isValidBookLength() {
   test "$1"
 }
-
 
 readValidBookLength() {
   BOOKLENGTH=$1
@@ -110,15 +108,6 @@ readValidBookLength() {
     read -r BOOKLENGTH
   done
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -166,21 +155,15 @@ validateEven() {
 
 createPages() {
   PAGES=$1
-  cd "manuscript"
   p=0
   while [ "$p" -lt "$PAGES" ]; do
     p=$((p+1))
     mkdir -p "page-$p"
-    cd "page-$p"
-    touch "body.html"
-    touch "style.css"
-    echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css
-    cd ".."
+    (cd "page-$p" || exit; touch "body.html" && touch "style.css"; echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css)
   done  
-  echo "Done!" && cd ".." #Head back to root
 }
 
-setupGitRepository() {
+setupGit() {
   git init
   git add . -A
   git commit -am "First commit: Setup new book project" --quiet
