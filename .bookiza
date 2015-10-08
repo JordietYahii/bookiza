@@ -398,7 +398,6 @@ status() {
 # --------- PUSH TO REPO ----------#
 
 push() {
-  echo "Message:"
   readValidGitMessage "$MESSAGE"
   git commit -am "${MESSAGE}"
   git push
@@ -412,7 +411,7 @@ isValidGitMessage() {
 readValidGitMessage() {
   MESSAGE=$1
   while ! isValidGitMessage "$MESSAGE"; do
-    echo "Please enter a commit message (Example: Pushing page-10 to page-14 to the book!)"
+    echo "Message:"
     read MESSAGE
   done
 }
