@@ -58,9 +58,18 @@ new() {
 
   PROJECTNAME=${args[1]}
 
+  readValidProjectName "$PROJECTNAME"
+
+  echo "${PROJECTNAME}"
+
+  return 
+
+  setupProject "$PROJECTNAME"
+
   if [ ${PROJECTNAME:+x} ] ; then
-    setupProject "$PROJECTNAME"  
+      
   else 
+      
     validateProjectName "$PROJECTNAME"
   fi
   
@@ -84,6 +93,21 @@ new() {
 
 ###### Validations ######
 
+
+isValidProjectName() {
+  test "$1"
+}
+
+
+readValidProjectName() {
+  PROJECTNAME=$1
+  while ! isValidProjectName "$PROJECTNAME"; do
+    echo -e "Project name (HINT: My-New-Book-Name i.e. use hyphens!) \c"
+    read PROJECTNAME
+  done
+}
+
+
 validateProjectName() {
   if [[ $# -eq 0 ]] ; then
     echo "Project name not supplied. (HINT: My-New-Book-Name i.e. use hypens!)"
@@ -97,6 +121,13 @@ validateProjectName() {
     exit
   fi  
 }
+
+
+
+
+
+
+
 
 validateBookLength() {
   if [[ $# -eq 0 ]] ; then
