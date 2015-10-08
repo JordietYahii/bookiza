@@ -96,11 +96,8 @@ setupProject() {
 ## ------ Book length methods ------ ##
 
 isValidBookLength() {
-  if [[ isBookLengthNumeric "$1" && isBookLengthEvenNumber "$1" ]] ; then 
-    return 0
-  else 
-    return 1
-  fi
+  isBookLengthNumeric "$1"  
+  isBookLengthEvenNumber "$1" 
 }
 
 readValidBookLength() {
