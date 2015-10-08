@@ -96,13 +96,17 @@ setupProject() {
 ## ------ Book length methods ------ ##
 
 isValidBookLength() {
-  return test "$1" && isBookLengthNumeric "$1" && isBookLengthEvenNumber "$1"
+  echo "I GOT HERE!"
+  return test "$1" && isBookLengthNumeric "$1" && isBookLengthEvenNumber "$1" 
+
+
 }
 
 readValidBookLength() {
   BOOKLENGTH=$1
-  echo "I GOT HERE!"
+
   while ! isValidBookLength "$BOOKLENGTH"; do
+    echo "I GOT HERE 2!"
     echo -e 'Book length? (HINT: An even number!): \c'
     read -r BOOKLENGTH
   done
