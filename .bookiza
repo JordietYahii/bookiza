@@ -54,9 +54,13 @@ bookiza() {
 new() {
   args=("$@")
 
-  echo Number of arguments passed =: $#
-  echo "Type: ${args[0]}, Project: ${args[1]} Booklength: ${args[2]}"
+  echo "Command: $ bookiza ${args[0]}, Projectname: ${args[1]} [Booklength]: ${args[2]}"
   
+  
+
+  return
+
+
 
   PROJECTNAME=${args[1]}
 
@@ -180,6 +184,13 @@ setupGitRepository() {
     read REPO_URL
   fi
 }
+
+
+
+
+
+
+
 
 # ---------- INSERT PAGES --------- #
 
