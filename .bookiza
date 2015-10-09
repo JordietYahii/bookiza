@@ -54,7 +54,7 @@ bookiza() {
 new() {
   args=("$@")
 
-  echo "Command: $ bookiza ${args[0]}, Projectname: ${args[1]} [Booklength]: ${args[2]}"
+  echo "Executing $ bookiza ${args[0]} ........"
 
   PROJECTNAME=${args[1]}
 
@@ -73,7 +73,8 @@ new() {
   setupGit
 }
 
-## ------ Project methods ------ ##
+#-------- project name ------ ##
+
 isValidProjectName() {
   test "$1"
 }
@@ -92,12 +93,12 @@ setupProject() {
   (cd templates || exit; touch template.html head.html template.css template.js)
 }
 
-## ------ Book length methods ------ ##
+## ------ Book length ------ ##
 
 readValidBookLength() {
   BOOKLENGTH=$1
 
-  while ! { isValidBookLength "$BOOKLENGTH" && isBookLengthNumeric $BOOKLENGTH && isBookLengthEvenNumber $BOOKLENGTH; }; do
+  while ! { isValidBookLength "$BOOKLENGTH" && isBookLengthNumeric "$BOOKLENGTH" && isBookLengthEvenNumber "$BOOKLENGTH"; }; do
     echo -e 'Book length? (HINT: An even number!): \c'
     read -r BOOKLENGTH
   done
@@ -142,8 +143,8 @@ setupGit() {
   git init
   git add . -A
   git commit -am "First commit: Setup new book project" --quiet
-  echo "Provide GITHUB URL:"
-  read REPO_URL
+  echo -e "GITHUB URL: \c"
+  read -r REPO_URL
   if [ ${REPO_URL:+x} ] ; then
     git remote add origin "$REPO_URL"
     git push -u origin master
@@ -153,10 +154,6 @@ setupGit() {
     read REPO_URL
   fi
 }
-
-
-
-
 
 
 
