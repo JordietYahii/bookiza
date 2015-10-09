@@ -192,7 +192,7 @@ readValidInsertAt() {
 isArgumentInRange() {
   ARGUMENT=$1  
 
-  # TODO: Smelly code :(
+  # TODO: Smelly code here :(
 
   cd manuscript || exit;
   getLength
@@ -241,30 +241,10 @@ add() {
   NUMBER_OF_PAGES=${args[1]}
 
   readValidNumberOfPages "$NUMBER_OF_PAGES"
-  
+
   (cd manuscript || exit; getLength; createPages "$((BOOKLENGTH+1))" "$NUMBER_OF_PAGES")  
-
 }
 
-
-addtostack() {
-  getLength
-  
-  echo "Requested no = ${NUMBER_OF_PAGES}"
-
-  echo "Shout the book length again: ${BOOKLENGTH}"
-
-  q=1
-  while [ "$q" -le "$NUMBER_OF_PAGES" ]; do
-    mkdir -p "page-$((BOOKLENGTH+q))"
-    cd "page-$((BOOKLENGTH+q))"
-    touch "body.html"
-    touch "style.css"
-    q=$((q+1))
-    cd ".."
-  done  
-  echo "Finished adding pages to the stack!"
-}
 
 # --------- REMOVE PAGE_No ----------#
 
@@ -272,20 +252,21 @@ addtostack() {
 remove() {
   args=("$@")
 
-  echo Number of arguments passed =: $#
-  echo "Type: ${args[0]}, Page number: ${args[1]}"
+  REMOVE_AT="${args[1]}"
 
-  cd "manuscript"
-  PAGE_NO="${args[1]}"
+  readValidRemoveAt "$REMOVE_AT"
 
-  if [ ${PAGE_NO:+x} ] ; then
-    trashPage $PAGE_NO
-  else
-    validatePageNo $PAGE_NO
-  fi
-  getLength
-  cd ".."
+  return
 }
+
+readValidRemoveAt() {
+  REMOVE_AT=$1
+  while ! { isValidArgument "$REMOVE_AT" && isArgumentNumeric "$REMOVE_AT" && isArgumentInRange "$REMOVE_AT"; }; do
+    echo -e 'Remove page at?: \c'
+    read -r REMOVE_AT
+  done
+}
+
 
 trashPage() {
   args=("$@")
@@ -308,16 +289,6 @@ trashPage() {
   fi
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 # ---------- BOOKLENGTH --------- #
@@ -374,13 +345,9 @@ publish() {
   git push -u origin master
 }
 
-isValidHostURL() {
-  test "$1"
-}
-
 readValidHostURL() {
   HOST_URL=$1
-  while ! isValidHostURL "$HOST_URL"; do
+  while ! isValidArgument "$HOST_URL"; do
     echo -e "Bubblin URL?: \c"
     read -r HOST_URL
   done
@@ -436,7 +403,7 @@ echo "
 echo "
   $ bookiza remove [page_number] 
     Examples:    
-      1. page_number: 4, 17      (Must be integer)
+      1. Removes page at [page_number]: 4, 17      (Must be integer)
 "
 
 
