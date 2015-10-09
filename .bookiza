@@ -271,7 +271,7 @@ readValidRemoveAt() {
 deletePage() {
   PAGE_NO=$1
   if [ -d "page-$PAGE_NO"  ]; then
-    (mv -i -f "page-$PAGE_NO" "../trash/";) 
+    (mv "page-$PAGE_NO" "../trash/page-$PAGE_NO-$timestamp";) 
 
     m="$PAGE_NO"
     m=$((m+1))
@@ -284,6 +284,10 @@ deletePage() {
     (getLength; createPages "$((BOOKLENGTH+1))" 1)
   fi
 
+}
+
+timestamp() {
+  date +"%T"
 }
 
 
