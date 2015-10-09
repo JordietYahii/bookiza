@@ -68,7 +68,7 @@ new() {
   
   START_AT=0
 
-  (cd manuscript || exit; createPages "START_AT" "$BOOKLENGTH")
+  (cd manuscript || exit; createPages "$START_AT" "$BOOKLENGTH")
 
   setupRepo
 }
