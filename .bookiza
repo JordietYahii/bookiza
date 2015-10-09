@@ -184,9 +184,11 @@ insert() {
 
   readValidNumberOfPages "$NUMBER_OF_PAGES"
 
-  generatePages $INSERT_AT $NUMBER_OF_PAGES
+  return 
 
-  echo "DONE:)"
+  (cd manuscript || exit; createPages "$BOOKLENGTH") # Make the create pages method reusable
+  (generatePages $INSERT_AT $NUMBER_OF_PAGES)
+
 }
 
 readValidInsertAt() {
@@ -213,8 +215,6 @@ generatePages() {
 
   p="$INSERT_AT"
 
-  cd "manuscript"
-
   if [ -d "page-$p"  ]; then
     getLength
     q="$BOOKLENGTH"
@@ -234,8 +234,6 @@ generatePages() {
       cd ".."
     done
   fi
-  cd ".."
-  getLength
 }
 
 # ---------- ADD PAGES --------- #
