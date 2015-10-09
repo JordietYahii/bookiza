@@ -272,7 +272,7 @@ deletePage() {
   PAGE_NO=$1
   if [ -d "page-$PAGE_NO"  ]; then
 
-    (getLength; mv "page-$PAGE_NO" "../trash/page-$PAGE_NO"; bookiza add 1)
+    (mv "page-$PAGE_NO" "../trash/page-$PAGE_NO"; getLength; createPages "$((BOOKLENGTH+1))" 1) 
 
     m="$PAGE_NO"
     m=$((m+1))
