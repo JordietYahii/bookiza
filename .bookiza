@@ -172,10 +172,24 @@ insert() {
 readValidInsertAt() {
   INSERT_AT=$1
 
-  while ! { isValidArgument "$INSERT_AT" && isArgumentNumeric "$INSERT_AT"; }; do
+  while ! { isValidArgument "$INSERT_AT" && isArgumentNumeric "$INSERT_AT" && isArgumentInRange "$INSERT_AT"; }; do
     echo -e 'Insert at?: \c'
     read -r INSERT_AT
   done
+}
+
+isArgumentInRange() {
+  ARGUMENT=$1  
+
+  length # Fetches & prints current BOOKLENGTH
+
+  if ! [[ $ARGUMENT lt $BOOKLENGTH && $ARGUMENT ge 0]] ; then
+    return 1
+  else
+    return 0
+  fi
+
+  
 }
 
 readValidNumberOfPages() {
@@ -202,6 +216,7 @@ createPages() {
     (cd "page-$COUNT" || exit; touch "body.html" && touch "style.css"; echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css)
   done  
 }
+
 
 
 generatePages() {
@@ -317,6 +332,8 @@ trashPage() {
 
 }
 
+
+
 # ---------- BOOKLENGTH --------- #
 
 length() {
@@ -332,7 +349,7 @@ getLength() {
   until [ ! -d "page-$((BOOKLENGTH+1))"  ]; do
     BOOKLENGTH=$((BOOKLENGTH+1))
   done
-  echo Book length is: $BOOKLENGTH pages
+  echo "Book length is: ${BOOKLENGTH} pages"
   return
 }
 
