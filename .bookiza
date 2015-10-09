@@ -183,7 +183,7 @@ isArgumentInRange() {
 
   length # Fetches & prints current BOOKLENGTH
 
-  if ! [[ $ARGUMENT lt $BOOKLENGTH && $ARGUMENT ge 0]] ; then
+  if ! [[ $ARGUMENT -le $BOOKLENGTH && $ARGUMENT -ge 0]] ; then
     return 1
   else
     return 0
