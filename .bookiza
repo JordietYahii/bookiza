@@ -256,7 +256,7 @@ remove() {
 
   readValidRemoveAt "$REMOVE_AT"
 
-  (cd manuscript; deletePage "$REMOVE_AT")
+  (cd manuscript || exit; deletePage "$REMOVE_AT")
 
 }
 
@@ -271,7 +271,7 @@ readValidRemoveAt() {
 deletePage() {
   PAGE_NO=$1
   if [ -d "page-$PAGE_NO"  ]; then
-    (mv -i "page-$PAGE_NO" "../trash/page-$PAGE_NO";) 
+    (mv -i "page-$PAGE_NO" "../trash/";) 
 
     m="$PAGE_NO"
     m=$((m+1))
