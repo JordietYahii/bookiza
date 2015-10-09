@@ -148,13 +148,9 @@ setupRepo() {
   echo "Project is ready!"   
 }
 
-isValidRepoURL() {
-  test "$1"
-}
-
 readValidRepoURL() {
   REPO_URL=$1
-  while ! isValidRepoURL "$REPO_URL"; do
+  while ! isValidArgument "$REPO_URL"; do
     echo -e "Repository URL?: \c"
     read -r REPO_URL
   done
@@ -271,7 +267,7 @@ readValidRemoveAt() {
 deletePage() {
   PAGE_NO=$1
   if [ -d "page-$PAGE_NO"  ]; then
-    (mv "page-$PAGE_NO" "../trash/page-$PAGE_NO-$timestamp";) 
+    (mv "page-$PAGE_NO" "../trash/page-$PAGE_NO-$(timestamp)";) 
 
     m="$PAGE_NO"
     m=$((m+1))
@@ -323,14 +319,9 @@ push() {
   git push
 }
 
-
-isValidGitMessage() {
-  test "$1"
-}
-
 readValidGitMessage() {
   MESSAGE=$1
-  while ! isValidGitMessage "$MESSAGE"; do
+  while ! isValidArgument "$MESSAGE"; do
     echo -e "Message: \c"
     read -r MESSAGE
   done
