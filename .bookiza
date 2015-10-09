@@ -143,19 +143,27 @@ setupGit() {
   git init
   git add . -A
   git commit -am "First commit: Setup new book project" --quiet
-  echo -e "GITHUB URL: \c"
-  read -r REPO_URL
-  if [ ${REPO_URL:+x} ] ; then
-    git remote add origin "$REPO_URL"
-    git push -u origin master
-    echo "Project ready! Stacked ${PAGES} blank pages inside /manuscript correctly."   
-  else
-    echo "Error: Argument not supplied, try again!"
-    read REPO_URL
-  fi
+
+  readValidRepoURL "$REPO_URL"
+
+  git remote add origin "$REPO_URL"
+  git push -u origin master
+  echo "Project ready! Stacked ${PAGES} blank pages inside /manuscript correctly."   
 }
 
 
+
+isValidRepoURL() {
+  test "$1"
+}
+
+readValidRepoURL() {
+  REPO_URL=$1
+  while ! isValidRepoURL "$REPO_URL"; do
+    echo -e "Github URL? (HINT: https://github.com/username/my-new-book-name.git): \c"
+    read -r REPO_URL
+  done
+}
 
 
 
