@@ -187,8 +187,10 @@ isArgumentInRange() {
   echo "SHOUT OUT! ${BOOKLENGTH}"
 
   if [[ "$ARGUMENT" -le "$BOOKLENGTH" ]] ; then
+    echo "$ARGUMENT in range!"
     return 0
   else
+    echo "$ARGUMENT out of range!"
     return 1
   fi
 
