@@ -190,18 +190,16 @@ readValidNumberOfPages() {
 createPages() {
   args=("$@")
 
-  echo START_AT: "${args[0]}", [ Number of pages/ Book length: "${args[1]}" ]
+  echo "START_AT: ${args[0]}, [ Number of pages/ Book length: ${args[1]} ]"
 
-  return
+  NUMBER_OF_PAGES=${args[1]}
 
+  COUNT=${args[0]}
 
-
-  PAGES=$1
-  p=0           # p = INSERT_AT to reuse this method 
-  while [ "$p" -lt "$PAGES" ]; do
-    p=$((p+1))
-    mkdir -p "page-$p"
-    (cd "page-$p" || exit; touch "body.html" && touch "style.css"; echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css)
+  while [ "$COUNT" -lt "$NUMBER_OF_PAGES" ]; do
+    COUNT=$((COUNT+1))
+    mkdir -p "page-$COUNT"
+    (cd "page-$COUNT" || exit; touch "body.html" && touch "style.css"; echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css)
   done  
 }
 
