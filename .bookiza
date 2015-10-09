@@ -256,7 +256,8 @@ remove() {
 
   readValidRemoveAt "$REMOVE_AT"
 
-  return
+  (cd manuscript; deletePage "$REMOVE_AT")
+
 }
 
 readValidRemoveAt() {
@@ -267,27 +268,20 @@ readValidRemoveAt() {
   done
 }
 
-
-trashPage() {
-  args=("$@")
-  echo PAGE_NO: "${args[0]}", [ Blah: "${args[1]}" ]
-
-  PAGE_NO="${args[0]}"
-
+deletePage() {
+  PAGE_NO=$1
   if [ -d "page-$PAGE_NO"  ]; then
-    mv "page-$PAGE_NO" "../trash/page-$PAGE_NO"
+
+    (getLength; mv "page-$PAGE_NO" "../trash/page-$PAGE_NO"; bookiza add 1)
 
     m="$PAGE_NO"
-    echo "Starting directory reduction"
     m=$((m+1))
 
     until [ ! -d "page-$m"  ]; do
-
       mv "page-$((m))" "page-$((m-1))"
       m=$((m+1))
     done
   fi
-
 }
 
 
