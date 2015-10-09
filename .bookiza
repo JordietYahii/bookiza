@@ -229,11 +229,12 @@ pushStackDown() {
 
   p="$INSERT_AT"
 
-  return 
-
   if [ -d "page-$p"  ]; then
     getLength
     q="$BOOKLENGTH"
+
+    echo q
+
     while [ "$q" -ge "$p" ]; do
       mv "page-$((q))" "page-$((q+NUMBER_OF_PAGES))"
       q=$((q-1))
