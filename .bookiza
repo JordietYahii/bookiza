@@ -183,6 +183,7 @@ isArgumentInRange() {
 
   cd manuscript 
   getLength
+  cd ..
   echo "SHOUT OUT! ${BOOKLENGTH}"
 
   if ! [[ "$ARGUMENT" -le "$BOOKLENGTH" ]] ; then
