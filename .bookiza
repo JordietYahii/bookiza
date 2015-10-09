@@ -181,8 +181,8 @@ readValidInsertAt() {
 isArgumentInRange() {
   ARGUMENT=$1  
 
-  (cd manuscript; getLength)
-
+  cd manuscript 
+  getLength
   echo "SHOUT OUT! ${BOOKLENGTH}"
 
   if ! [[ "$ARGUMENT" -le "$BOOKLENGTH" ]] ; then
