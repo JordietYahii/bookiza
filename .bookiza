@@ -442,17 +442,24 @@ server() {
 # --------- FRAMEWORK GUIDE --------#
 
 help() {
-  echo $"Usage: $0 { new | insert | length | remove | status | push | publish | server | help | update | -v }"
+  
+  echo $"Usage: $0 { new | insert | length | remove | status | push | publish | server | help | update | -v } <command> [<args>] "
+  
+
+
   echo "
+
+
+
 # -------------------------------------------------#
 #            BOOKIZA SUPERBOOK FRAMEWORK           #
 # -------------------------------------------------#
 
 $ bookiza new [hyphenated-project-name] [expected number of pages] 
   Examples:    
-    1. Project name: My-New-Book-Name i.e. use hyphens!
-    2. Book length: 24, 100       (Book length must be an even number! Read why: https://bubbl.in/book/official-handbook-by-marvin-danig/36
-    3. Github URL: https://github.com/username/my-new-book.git     (Use an ssh url to commit without username/password everytime.)
+    1. Project/book name: My-Awesome-Book-Name i.e. use hyphens!
+    2. Book length: 24, 100       (Must be even number. Here's why: https://bubbl.in/book/official-handbook-by-marvin-danig/36)
+    3. Github URL: https://github.com/username/my-new-book.git     
 "
 
 } 
