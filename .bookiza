@@ -271,7 +271,7 @@ readValidRemoveAt() {
 deletePage() {
   PAGE_NO=$1
   if [ -d "page-$PAGE_NO"  ]; then
-    (mv "page-$PAGE_NO" "../trash/page-$PAGE_NO"; echo "page-${PAGE_NO} removed") 
+    (mv -i "page-$PAGE_NO" "../trash/page-$PAGE_NO";) 
 
     m="$PAGE_NO"
     m=$((m+1))
