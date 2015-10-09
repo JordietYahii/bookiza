@@ -347,8 +347,7 @@ trashPage() {
 
 length() {
   if [ -d manuscript/ ] ; then
-    (cd manuscript; getLength)
-    echo "Shout the book length again: ${BOOKLENGTH}"
+    (cd manuscript; getLength; echo "Shout the book length again: ${BOOKLENGTH}")
   else 
     echo "Manuscript not found, probably not in project root!"
   fi
