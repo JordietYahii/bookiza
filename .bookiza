@@ -124,6 +124,25 @@ isArgumentEvenNumber() {
   fi  
 }
 
+
+createPages() {
+  args=("$@")
+
+  echo "START_AT: ${args[0]}, [ Number of pages/ Book length: ${args[1]} ]"
+
+  NUMBER_OF_PAGES=${args[1]}
+
+  COUNT=${args[0]}
+
+  while [ "$COUNT" -lt "$NUMBER_OF_PAGES" ]; do
+    COUNT=$((COUNT+1))
+    mkdir -p "page-$COUNT"
+    (cd "page-$COUNT" || exit; touch "body.html" && touch "style.css"; echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css)
+  done  
+
+}
+
+
 setupRepo() {
   git init
   git add . -A
@@ -162,10 +181,11 @@ insert() {
 
   readValidNumberOfPages "$NUMBER_OF_PAGES"
 
-  return 
+  (cd manuscript || exit; pushStackDown $INSERT_AT $NUMBER_OF_PAGES)
 
-  (cd manuscript || exit; createPages "$BOOKLENGTH") # Make the create pages method reusable
-  (generatePages $INSERT_AT $NUMBER_OF_PAGES)
+  return
+
+  (cd manuscript || exit; createPages $INSERT_AT $NUMBER_OF_PAGES)
 
 }
 
@@ -181,20 +201,17 @@ readValidInsertAt() {
 isArgumentInRange() {
   ARGUMENT=$1  
 
+  # smelly code :(
   cd manuscript 
   getLength
   cd ..
-  echo "SHOUT OUT! ${BOOKLENGTH}"
 
-  if [[ "$ARGUMENT" -le "$BOOKLENGTH" ]] ; then
-    echo "$ARGUMENT in range!"
+  if [[ "$ARGUMENT" -le "$BOOKLENGTH" ]] && [[ "$ARGUMENT" -ge 0 ]] ; then
     return 0
   else
-    echo "$ARGUMENT out of range!"
     return 1
   fi
-
-  
+ 
 }
 
 readValidNumberOfPages() {
@@ -206,29 +223,13 @@ readValidNumberOfPages() {
 }
 
 
-createPages() {
+pushStackDown() {
   args=("$@")
-
-  echo "START_AT: ${args[0]}, [ Number of pages/ Book length: ${args[1]} ]"
-
-  NUMBER_OF_PAGES=${args[1]}
-
-  COUNT=${args[0]}
-
-  while [ "$COUNT" -lt "$NUMBER_OF_PAGES" ]; do
-    COUNT=$((COUNT+1))
-    mkdir -p "page-$COUNT"
-    (cd "page-$COUNT" || exit; touch "body.html" && touch "style.css"; echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css)
-  done  
-}
-
-
-
-generatePages() {
-  args=("$@")
-  echo INSERT_AT: "${args[0]}", [ Number of pages: "${args[1]}" ]
+  echo INSERT_AT: "${args[0]}", [ NUMBER_OF_PAGES: "${args[1]}" ]
 
   p="$INSERT_AT"
+
+  return 
 
   if [ -d "page-$p"  ]; then
     getLength
@@ -237,18 +238,19 @@ generatePages() {
       mv "page-$((q))" "page-$((q+NUMBER_OF_PAGES))"
       q=$((q-1))
     done
-
-    q=0
-    while [ "$q" -lt "$NUMBER_OF_PAGES" ]; do
-      mkdir -p "page-$((p+q))"
-      cd "page-$((p+q))"
-
-      touch "body.html"
-      touch "style.css"
-      q=$((q+1))
-      cd ".."
-    done
   fi
+
+#    q=0
+#    while [ "$q" -lt "$NUMBER_OF_PAGES" ]; do
+#      mkdir -p "page-$((p+q))"
+#      cd "page-$((p+q))"
+#     touch "body.html"
+#      touch "style.css"
+#     q=$((q+1))
+#     cd ".."
+#   done
+
+
 }
 
 # ---------- ADD PAGES --------- #
