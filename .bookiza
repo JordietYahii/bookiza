@@ -181,9 +181,7 @@ readValidInsertAt() {
 isArgumentInRange() {
   ARGUMENT=$1  
 
-  (cd manuscript; getLength) 
-
-  echo "${BOOKLENGTH} is hot"
+  (cd manuscript; getLength)
 
   if ! [[ "$ARGUMENT" -le "$BOOKLENGTH" ]] ; then
     return 1
@@ -344,7 +342,7 @@ length() {
   else 
     echo "Manuscript not found, probably not in project root!"
   fi
-  echo "Book length is: $BOOKLENGTH pages"
+  
 }
 
 getLength() {
@@ -352,6 +350,7 @@ getLength() {
   until [ ! -d "page-$((BOOKLENGTH+1))"  ]; do
     BOOKLENGTH=$((BOOKLENGTH+1))
   done
+  echo "Book length is: ${BOOKLENGTH} pages"
   return
 }
 
