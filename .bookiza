@@ -186,10 +186,10 @@ isArgumentInRange() {
   cd ..
   echo "SHOUT OUT! ${BOOKLENGTH}"
 
-  if ! [[ "$ARGUMENT" -le "$BOOKLENGTH" ]] ; then
-    return 1
-  else
+  if [[ "$ARGUMENT" -le "$BOOKLENGTH" ]] ; then
     return 0
+  else
+    return 1
   fi
 
   
