@@ -66,9 +66,7 @@ new() {
 
   readValidBookLength "$BOOKLENGTH"
   
-  START_AT=0
-
-  (cd manuscript || exit; createPages "$START_AT" "$BOOKLENGTH")
+  (cd manuscript || exit; INSERT_AT=1; createPages "$INSERT_AT" "$BOOKLENGTH")
 
   setupRepo
 }
@@ -123,25 +121,6 @@ isArgumentEvenNumber() {
     return 1
   fi  
 }
-
-
-createPages() {
-  args=("$@")
-
-  echo "START_AT: ${args[0]}, [ Number of pages/ Book length: ${args[1]} ]"
-
-  NUMBER_OF_PAGES=${args[1]}
-
-  COUNT=${args[0]}
-
-  while [ "$COUNT" -lt "$NUMBER_OF_PAGES" ]; do
-    COUNT=$((COUNT+1))
-    mkdir -p "page-$COUNT"
-    (cd "page-$COUNT" || exit; touch "body.html" && touch "style.css"; echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css)
-  done  
-
-}
-
 
 setupRepo() {
   git init
@@ -233,26 +212,42 @@ pushStackDown() {
     getLength
     q="$BOOKLENGTH"
 
-    echo q
-
     while [ "$q" -ge "$p" ]; do
       mv "page-$((q))" "page-$((q+NUMBER_OF_PAGES))"
       q=$((q-1))
     done
   fi
+}
 
-#    q=0
-#    while [ "$q" -lt "$NUMBER_OF_PAGES" ]; do
-#      mkdir -p "page-$((p+q))"
-#      cd "page-$((p+q))"
-#     touch "body.html"
-#      touch "style.css"
-#     q=$((q+1))
-#     cd ".."
-#   done
 
+createPages() {
+  args=("$@")
+
+  echo "START_AT: ${args[0]}, [ Number of pages/ Book length: ${args[1]} ]"
+
+  START_AT=${args[0]}
+
+  NUMBER_OF_PAGES=${args[1]}
+
+
+  q=0
+  while [ "$q" -lt "$NUMBER_OF_PAGES" ]; do
+    mkdir -p "page-$((START_AT+q))"
+    (cd "page-$((START_AT+q))" || exit; touch "body.html" && touch "style.css"; echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css)
+    q=$((q+1))
+    cd ".."
+  done
+
+
+#  COUNT=0
+#  while [ "$COUNT" -lt "$NUMBER_OF_PAGES" ]; do
+#    COUNT=$((COUNT+1))
+#    mkdir -p "page-$COUNT"
+#    (cd "page-$COUNT" || exit; touch "body.html" && touch "style.css"; echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css)
+#  done  
 
 }
+
 
 # ---------- ADD PAGES --------- #
 
