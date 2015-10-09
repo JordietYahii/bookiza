@@ -344,7 +344,7 @@ length() {
   else 
     echo "Manuscript not found, probably not in project root!"
   fi
-  echo "Book length is: ${BOOKLENGTH} pages"
+  echo "Book length is: $BOOKLENGTH pages"
 }
 
 getLength() {
