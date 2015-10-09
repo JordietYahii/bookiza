@@ -200,13 +200,10 @@ readValidInsertAt() {
 
 readValidNumberOfPages() {
   NUMBER_OF_PAGES=$1
-  if ! { isValidArgument "$NUMBER_OF_PAGES" && isArgumentNumeric "$NUMBER_OF_PAGES" && isArgumentEvenNumber "$NUMBER_OF_PAGES"; }; do
+  while ! { isValidArgument "$NUMBER_OF_PAGES" && isArgumentNumeric "$NUMBER_OF_PAGES" && isArgumentEvenNumber "$NUMBER_OF_PAGES"; }; do
     echo -e 'Number of pages?: \c'
     read -r NUMBER_OF_PAGES
-  else
-    echo "Inserting default 2 pages at ${INSERT_AT}"
-    NUMBER_OF_PAGES=2
-  fi
+  done
 }
 
 
