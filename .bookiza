@@ -94,19 +94,19 @@ setupProject() {
 
 ## ------ Book length methods ------ ##
 
-isValidBookLength() {
-  test "$1" 
-}
-
 readValidBookLength() {
   BOOKLENGTH=$1
 
-  while ! [ isValidBookLength $BOOKLENGTH ] && ! [ isBookLengthNumeric $BOOKLENGTH ]; do
+  while ! isValidBookLength "$BOOKLENGTH" || ! isBookLengthNumeric $BOOKLENGTH || isBookLengthEvenNumber $BOOKLENGTH; do
     echo -e 'Book length? (HINT: An even number!): \c'
     read -r BOOKLENGTH
   done
+
 }
 
+isValidBookLength() {
+  test "$1" 
+}
 
 isBookLengthNumeric() {
   echo "I GOT HERE!"
