@@ -425,6 +425,19 @@ echo "
       2. number_of_pages: 4, 8      (Must be even number)
 "
 
+echo "
+  $ bookiza add [number_of_pages] 
+    Examples:    
+      1. number_of_pages: 4, 8      (Must be even number)
+"
+
+echo "
+  $ bookiza remove [page_number] 
+    Examples:    
+      1. page_number: 4, 17      (Must be integer)
+"
+
+
 
 } 
 
