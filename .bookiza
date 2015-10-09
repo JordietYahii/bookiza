@@ -271,8 +271,7 @@ readValidRemoveAt() {
 deletePage() {
   PAGE_NO=$1
   if [ -d "page-$PAGE_NO"  ]; then
-
-    (mv "page-$PAGE_NO" "../trash/page-$PAGE_NO"; getLength; echo "$BOOKLENGTH"; NUMBER_OF_PAGES=1; createPages "$((BOOKLENGTH+1))" "$NUMBER_OF_PAGES") 
+    (mv "page-$PAGE_NO" "../trash/page-$PAGE_NO";) 
 
     m="$PAGE_NO"
     m=$((m+1))
@@ -281,7 +280,10 @@ deletePage() {
       mv "page-$((m))" "page-$((m-1))"
       m=$((m+1))
     done
+
+    getLength; echo "$BOOKLENGTH is odd!"; NUMBER_OF_PAGES=1; createPages "$((BOOKLENGTH+1))" "$NUMBER_OF_PAGES"
   fi
+
 }
 
 
