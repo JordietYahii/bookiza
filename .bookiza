@@ -68,7 +68,7 @@ new() {
   
   (cd manuscript || exit; createPages "$BOOKLENGTH")
 
-  setupGit
+  setupRepo
 }
 
 #-------- project name ------ ##
@@ -80,7 +80,7 @@ isValidProjectName() {
 readValidProjectName() {
   PROJECTNAME=$1
   while ! isValidProjectName "$PROJECTNAME"; do
-    echo -e "Project name? (HINT: My-New-Book-Name i.e. use hyphens!): \c"
+    echo -e "Project name?: \c"
     read -r PROJECTNAME
   done
 }
@@ -97,7 +97,7 @@ readValidBookLength() {
   BOOKLENGTH=$1
 
   while ! { isValidBookLength "$BOOKLENGTH" && isBookLengthNumeric "$BOOKLENGTH" && isBookLengthEvenNumber "$BOOKLENGTH"; }; do
-    echo -e 'Book length? (HINT: An even number!): \c'
+    echo -e 'Book length?: \c'
     read -r BOOKLENGTH
   done
 
@@ -129,7 +129,7 @@ isBookLengthEvenNumber() {
 createPages() {
   PAGES=$1
   echo "${PAGES}"
-  p=0
+  p=0           # p = INSERT_AT to reuse this method 
   while [ "$p" -lt "$PAGES" ]; do
     p=$((p+1))
     mkdir -p "page-$p"
@@ -137,20 +137,15 @@ createPages() {
   done  
 }
 
-setupGit() {
-
+setupRepo() {
   git init
   git add . -A
-  git commit -am "First commit: Setup new book project" --quiet
-
+  git commit -am "First commit: Setup new book project" --quiet  
   readValidRepoURL "$REPO_URL"
-
   git remote add origin "$REPO_URL"
   git push -u origin master
-  echo "Project is ready! ${PAGES} stacked inside /manuscript"   
+  echo "Project is ready!"   
 }
-
-
 
 isValidRepoURL() {
   test "$1"
@@ -159,10 +154,13 @@ isValidRepoURL() {
 readValidRepoURL() {
   REPO_URL=$1
   while ! isValidRepoURL "$REPO_URL"; do
-    echo -e "Repo URL? (HINT: git@github.com:usernamemy-new-book.git): \c"
+    echo -e "Repository URL?: \c"
     read -r REPO_URL
   done
 }
+
+
+
 
 
 
@@ -414,7 +412,22 @@ readValidGitMessage() {
 # --------- PUBLISH TO BUBBLIN ----------#
 
 publish() {
-  echo "# TODO: To add 'publish' method to substrate on https://bubbl.in "
+  echo "# TODO: Expose authenticated POST API on https://bubbl.in"
+  readValidHostURL "$HOST_URL"          # TODO: HOST_URL can be constructed using hyphenated $projectname & author-full-name
+  git remote add origin "$HOST_URL"
+  git push -u origin master
+}
+
+isValidHostURL() {
+  test "$1"
+}
+
+readValidHostURL() {
+  HOST_URL=$1
+  while ! isValidHostURL "$HOST_URL"; do
+    echo -e "Bubblin URL?: \c"
+    read -r HOST_URL
+  done
 }
 
 # ---------- LOCAL SERVER --------- #
@@ -429,7 +442,13 @@ server() {
 # --------- FRAMEWORK GUIDE --------#
 
 help() {
-  echo $"Usage: $0 { new | insert | length | remove | update | push | server | help | -v }"
+  echo $"Usage: $0 { new | insert | length | remove | update | push | server | help | -v }
+  ===================================================================================
+  Project name: Example = My-New-Book-Name i.e. use hyphens!
+  Book length: Must be an even number
+  Github URL: https://github.com/username/my-new-book.git)
+  "
+
 } 
 
 
