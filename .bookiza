@@ -188,13 +188,9 @@ readValidInsertAt() {
 isArgumentInRange() {
   ARGUMENT=$1  
 
-  # TODO: Smelly code here :(
+  BOOKLENGTH=$(cd manuscript || exit; getLength; echo $BOOKLENGTH)
 
-  cd manuscript || exit;
-  getLength
-  cd ..
-
-  if [[ "$ARGUMENT" -le "$BOOKLENGTH" ]] && [[ "$ARGUMENT" -ge 0 ]] ; then
+  if [[ "$ARGUMENT" -le "$BOOKLENGTH" ]] && [[ "$ARGUMENT" -gt 0 ]] ; then
     return 0
   else
     return 1
