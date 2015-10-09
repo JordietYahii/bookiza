@@ -443,22 +443,29 @@ server() {
 
 help() {
   
-  echo "
-    # -------------------------------------------------#
-    #            BOOKIZA SUPERBOOK FRAMEWORK           #
-    # -------------------------------------------------#
-  "
-  echo "Usage: $ $1 <command> [<args>]"
+echo "
+# -------------------------------------------------#
+#            BOOKIZA SUPERBOOK FRAMEWORK           #
+# -------------------------------------------------#
+"
+echo "Usage: $ bookiza <command> [<args>]"
   
-  echo "Usage: $0 { new | insert | length | remove | status | push | publish | server | help | update | -v }"
+echo "Usage: $0 { new | insert | length | remove | status | push | publish | server | help | update | -v }"
 
-  echo "
+echo "
   $ bookiza new [hyphenated-project-name] [expected number of pages] 
     Examples:    
       1. Project/book name: My-Awesome-Book-Name i.e. use hyphens!
       2. Book length: 24, 100       (Must be even number. Here's why: https://bubbl.in/book/official-handbook-by-marvin-danig/36)
       3. Github URL: https://github.com/username/my-new-book.git     
-  "
+"
+
+echo "
+  $ bookiza insert [insert_at] [number_of_pages] 
+    Examples:    
+      1. insert_at: 31, 44          (Must be integer)
+      2. number_of_pages: 4, 8      (Must be even number)
+"
 
 
 } 
