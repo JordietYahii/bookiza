@@ -65,8 +65,6 @@ new() {
   BOOKLENGTH=${args[2]}
 
   readValidBookLength "$BOOKLENGTH"
-
-  echo "${BOOKLENGTH} is ha!"
   
   (cd manuscript || exit; createPages "$BOOKLENGTH")
 
@@ -140,6 +138,7 @@ createPages() {
 }
 
 setupGit() {
+
   git init
   git add . -A
   git commit -am "First commit: Setup new book project" --quiet
@@ -148,7 +147,7 @@ setupGit() {
 
   git remote add origin "$REPO_URL"
   git push -u origin master
-  echo "Project ready! Stacked ${PAGES} blank pages inside /manuscript correctly."   
+  echo "Project is ready! ${PAGES} stacked inside /manuscript"   
 }
 
 
@@ -160,7 +159,7 @@ isValidRepoURL() {
 readValidRepoURL() {
   REPO_URL=$1
   while ! isValidRepoURL "$REPO_URL"; do
-    echo -e "Github URL? (HINT: https://github.com/username/my-new-book-name.git): \c"
+    echo -e "Repo URL? (HINT: git@github.com:usernamemy-new-book.git): \c"
     read -r REPO_URL
   done
 }
