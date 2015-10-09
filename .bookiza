@@ -32,7 +32,7 @@ bookiza() {
       publish
       ;;        
     server)
-      server "$@"
+      server 
       ;;   
     help)
       help      
@@ -54,7 +54,7 @@ bookiza() {
 new() {
   args=("$@")
 
-  echo "Executing $ bookiza ${args[0]} ........"
+  echo "Setting up project ........"
 
   PROJECTNAME=${args[1]}
 
@@ -126,8 +126,6 @@ isArgumentEvenNumber() {
 createPages() {
   args=("$@")
 
-  echo "START_AT: ${args[0]}, [ Number of pages/ Book length: ${args[1]} ]"
-
   START_AT=${args[0]}
 
   END_AT=${args[1]}
@@ -138,18 +136,7 @@ createPages() {
     (cd "page-$((START_AT+q))" || exit; touch "body.html" && touch "style.css"; echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css)
     q=$((q+1))
   done
-
-
-#  COUNT=0
-#  while [ "$COUNT" -lt "$NUMBER_OF_PAGES" ]; do
-#    COUNT=$((COUNT+1))
-#    mkdir -p "page-$COUNT"
-#    (cd "page-$COUNT" || exit; touch "body.html" && touch "style.css"; echo "body{background:rgba(200, 235, 255, 0.99); margin:0 0; overflow:hidden;}" >> style.css)
-#  done  
-
 }
-
-
 
 setupRepo() {
   git init
@@ -179,8 +166,6 @@ readValidRepoURL() {
 insert() {
   args=("$@")
 
-  echo Type: ${args[0]}, INSERT_AT: "${args[1]}", [ No. of pages: "${args[2]}"]
-
   INSERT_AT=${args[1]}
 
   readValidInsertAt "$INSERT_AT"
@@ -189,9 +174,9 @@ insert() {
 
   readValidNumberOfPages "$NUMBER_OF_PAGES"
 
-  (cd manuscript || exit; pushStackDown $INSERT_AT $NUMBER_OF_PAGES)
+  (cd manuscript || exit; pushStackDown "$INSERT_AT" "$NUMBER_OF_PAGES")
 
-  (cd manuscript || exit; createPages $INSERT_AT $NUMBER_OF_PAGES)
+  (cd manuscript || exit; createPages "$INSERT_AT" "$NUMBER_OF_PAGES")
 
 }
 
@@ -207,8 +192,9 @@ readValidInsertAt() {
 isArgumentInRange() {
   ARGUMENT=$1  
 
-  # smelly code :(
-  cd manuscript 
+  # TODO: Smelly code :(
+
+  cd manuscript || exit;
   getLength
   cd ..
 
@@ -252,22 +238,10 @@ pushStackDown() {
 add() {
   args=("$@")
 
-  echo Number of arguments passed =: $#
-  echo "Method: $ bookiza ${args[0]}, Requested no. of pages: ${args[1]}"
-
   NUMBER_OF_PAGES=${args[1]}
 
-  if [ ${NUMBER_OF_PAGES:+x} ] ; then
-    validateNumberOfPages $NUMBER_OF_PAGES
-  else
-    NUMBER_OF_PAGES=2
-  fi
-
-  (length; echo "Number of pages = ${NUMBER_OF_PAGES}")
-
-  (cd manuscript; addtostack)
-   
-  (length; "Added ${NUMBER_OF_PAGES} pages!")
+  readValidNumberOfPages "$NUMBER_OF_PAGES"
+  return
 }
 
 
@@ -348,7 +322,7 @@ trashPage() {
 
 length() {
   if [ -d manuscript/ ] ; then
-    (cd manuscript; getLength; echo "Book length is: ${BOOKLENGTH} pages.")
+    (cd manuscript || exit; getLength; echo "Book length is: ${BOOKLENGTH} pages.")
   else 
     echo "Manuscript not found, probably not in project root!"
   fi
@@ -458,7 +432,7 @@ echo "
 # ---------- UPDATE SCRIPT --------- #
 
 update() {
-  (cd ~/.bookiza; git pull; source ~/.bash_profile; version)
+  (cd ~/.bookiza || exit; git pull; source ~/.bash_profile; version)
 }
 
 # ---------- VERSION --------- #
