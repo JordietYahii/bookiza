@@ -12,14 +12,26 @@ Our current build yields best experience on iPads(iOS 7+) and Android 5.0+ table
 
 ## What is Bookiza?
 
-Bookiza is an Open Source Book Writing Framework that is designed to *simplify* the rube-goldberg of book publishing. It helps you mint and *publish* crazily beautiful, responsive and cross-platform ebooks using only the building-blocks of web: i.e. HTML, CSS and JS (Yes we got JavaScript inside ebooks!). 
+Bookiza is an Open Source Book Writing Framework that is designed to *simplify* book-writing for you. *Publish* crazily beautiful, responsive and scalable books on the web using only the basic building-blocks: i.e. HTML, CSS and JavaScript (Yes, we got JS inside e-books!). 
 
-Our books look like books too, not some dumb website or a silly hyperlink to a petty file that people need to download in exchange of email.
+Also, contrary to what a section of developers try to force on you, our books look like books too. Not some dumbass website or a silly hyperlink to a petty file that people need to download before they can read.
 
-Read our ![demo book](http://bubbl.in/cover/the-solar-system-by-marvin-danig), for example.
+Check out our ![demo book](http://bubbl.in/cover/the-solar-system-by-marvin-danig) on your iPad, for example.
 
-# Why this?
-We built Bookiza because we wanted to write books, all kinds of books, like they were an app. Use our existing development toolchain to mint books that lets us focus on the story manuscript as efficiently as a framework would for an app. We wanted this framework to be obsessive about great book design and performance. A framework that left the past behind and focused on the future where mobile devices could make HTML5 feel native.
+## Why a framework and not an editor?
+We built Bookiza because we wanted to write books — all kinds of books — like we write our apps. Use our existing development toolchain to mint books using a project paradigm for our manuscript. It is as efficient as it can possibly get. 
+
+```
+$ bookiza new MY-AWESOME-BOOK-NAME 24           # Gives me a project with 24 blank pages to write on.
+```
+
+Open project on your favorite `editor` (Sublime/Atom) and start writing/creating your book! Once ready:
+
+```
+$ bookiza push
+$ bookiza publish
+```
+We wanted this framework to be lightweight and obsessive about book design and performance. A framework that left books modeled around files (lifeless artifacts) behind and focused on the future where mobile and tablets make for an ideal story .
 
 It's important to realize that Bookiza is not a replacement for frameworks used for building mobile web apps. There are a lot
 of great solutions that work well for websites, like [jQuery Mobile](http://jquerymobile.com/).
