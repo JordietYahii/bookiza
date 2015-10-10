@@ -21,65 +21,53 @@ Check out our ![demo book](http://bubbl.in/cover/the-solar-system-by-marvin-dani
 ## Why a framework, not a word processor?
 We built Bookiza because we wanted to write books — all kinds of books — like we write our apps. Use our existing development toolchain to mint books using the project paradigm of software. It is as efficient as it can get! 
 
+```
+$ bookiza new MY-AWESOME-BOOK-NAME 24           # Gives a project with 24 blank pages in `manuscript/`.
+$ bookiza server                  # Open http://localhost:6000 on your browser!
+```
 
-> $ bookiza new MY-AWESOME-BOOK-NAME 24           # Gives a project with 24 blank pages in `manuscript/`.
+Open your project in your favorite editor and just write away! Once ready, simply:
 
+```
+$ bookiza push
+$ bookiza publish
+```
 
-Open your project in your favorite editor and just write away! Once you're ready, simply:
+Bookiza is lightweight and *obsessive* about quick turnarounds. It optimizes towards design and performance and gives writers and comics designer a flexibility they haven't had for years. A framework that decidely leaves behind the old-school model of download-your-ebook-as-lifeless-artifacts (driven by an even older lobby group that wants physical books to remain on top!) and focus instead on a future where web and books are a unified resource that is easy to access, search and consumer anywhere.
 
+** NOTE: Bookiza is not a framework for mobile or web development. 
 
-> $ bookiza push
-> $ bookiza publish
+Bookiza is also not a good solution if you need to write short-form essays (1-2 pages or so). We do not support books with less than 6 pages on our substrate platform [Bubblin Superbooks](https://bubbl.in). 
 
-We wanted Bookiza to be lightweight and obsessive about book design, performance and flexibility. A framework that left behind old-school ebooks (closed models driven by arcane lobbyists!) modeled around files, lifeless artifacts, and focus instead on a future where web and books are single unified resource. Easy to access and mobile and tablets make for an ideal story .
-
-It's important to realize that Bookiza is not a replacement for frameworks used for building mobile web apps. There are a lot
-of great solutions that work well for websites, like [jQuery Mobile](http://jquerymobile.com/).
-
-Bookiza is also not a good solution if you need to support older generation devices. Our compatibility *starts* at iOS 6 and Android 4.1. We will never support versions earlier than those. This is a framework for the future. Learn more: [Where does the Bookiza Framework fit in?](http://Bookizaframework.com/blog/where-does-the-Bookiza-framework-fit-in/)
+[Where does the Bookiza Framework fit in?]()
 
 ## Quick Start
 
-To start using Bookiza, you have two options: copy over the built JS and CSS files, or
-use the `Bookiza` tool ([Bookiza-cli](https://github.com/driftyco/Bookiza-cli)) which can be installed through npm: _(You may need to prefix the command with `sudo` depending on your OS and setup.)_
 
 ```bash
-$ npm install -g Bookiza
+$ npm install -g bookiza
 ```
 
 Then, you can start a new Bookiza project by running:
 
 ```bash
-$ Bookiza start myproject
+$ bookiza new MY-AWESOME-BOOK-NAME 60
+$ bookiza server
 ```
-
-### Manual Start
-
-- Download the latest **stable** release from:
-  * The `release` folder of this repository
-  * Bookiza CDN: [Latest Release](http://code.Bookizaframework.com/)
-  * Using bower: `bower install Bookiza`
-  * For [Meteor](https://www.meteor.com/) applications: `meteor add driftyco:Bookiza` 
-- Download the **bleeding edge just-from-master release** from:
-  * Bookiza CDN: [Nightly Build](http://code.Bookizaframework.com/#nightly)
-  * Using bower: `bower install driftyco/Bookiza-bower#master`
-
-Once you have a release, use `js/Bookiza.js`, `js/Bookiza-angular.js`, and `css/Bookiza.css`.
-
-For most cases, you'll need AngularJS as well.  This is bundled in `js/angular/` and `js/angular-ui-router/`.
+Open `http://localhost:6000` on your browser to see your freshly minted book!
 
 
-## Demos
+## Library
+Books created via Bookiza can be published directly to [Bubblin](https://bubbl.in) - our substrate platform for superbook readers. Bubblin is fully integrated with [Stripe Connect](https://stripe.com/connect) and supports payments in multiple countries. 
 
- - [Bookiza Codepen.io Demos](http://codepen.io/Bookiza/public-list)
-
+Find a selection of *exclusive* and [handpicked books](https://bubbl.in/books) brought to you by our community of futurists. 
+ 
 
 ## Community
 
-* Follow [@Bookizaframework on Twitter](https://twitter.com/Bookizaframework)
-* Subscribe to the [Bookiza Newsletter](http://Bookizaframework.com/subscribe/)
+* Follow [@bookiza on Twitter](https://twitter.com/bookiza)
 * Have a question that's not a feature request or bug report? [Discuss on the Bookiza Forum](http://forum.Bookizaframework.com/)
-* Read our [Blog](http://Bookizaframework.com/blog/)
+* Read the [Bubblin Blog](http://medium.com/)
 * Have a feature request or find a bug? [Submit an issue](http://Bookizaframework.com/submit-issue/)
 
 
