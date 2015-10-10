@@ -12,7 +12,7 @@ Our current build yields best experience on iPads(iOS 7+) and Android 5.0+ table
 
 ## What is Bookiza?
 
-Bookiza is an Open Source Book Writer's Framework that is designed to *simplify*, *press* and *publish* crazily beautiful, responsive and cross-platform ebooks using only the building-blocks of web: i.e. HTML, CSS and JS (Yeah JavaScript inside e-books. We got that for you!). 
+Bookiza is an Open Source Book Writing Framework that is designed to *simplify* the rube-goldberg of book publishing. It helps you mint and *publish* crazily beautiful, responsive and cross-platform ebooks using only the building-blocks of web: i.e. HTML, CSS and JS (Yes we got JavaScript inside ebooks!). 
 
 Our books look like books too, not some dumb website or a silly hyperlink to a petty file that people need to download in exchange of email.
 
