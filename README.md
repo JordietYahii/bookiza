@@ -22,16 +22,16 @@ Check out our ![demo book](http://bubbl.in/cover/the-solar-system-by-marvin-dani
 We built Bookiza because we wanted to write books — all kinds of books — like we write our apps. Use our existing development toolchain to mint books using a project paradigm for our manuscript. It is as efficient as it can possibly get. 
 
 ```
-$ bookiza new MY-AWESOME-BOOK-NAME 24           # Gives me a project with 24 blank pages to write on.
+$ bookiza new MY-AWESOME-BOOK-NAME 24           # Gives a project with 24 blank pages in `manuscript/`.
 ```
 
-Open project on your favorite `editor` (Sublime/Atom) and start writing/creating your book! Once ready:
+The open your project in your favorite editor and write away! Once you're ready:
 
 ```
 $ bookiza push
 $ bookiza publish
 ```
-We wanted this framework to be lightweight and obsessive about book design and performance. A framework that left books modeled around files (lifeless artifacts) behind and focused on the future where mobile and tablets make for an ideal story .
+We wanted Bookiza to be lightweight and obsessive about book design, performance and flexibility. A framework that left behind old-school ebooks (closed models driven by arcane lobbyists!) modeled around files, lifeless artifacts, and focus instead on a future where web and books are single unified resource. Easy to access and mobile and tablets make for an ideal story .
 
 It's important to realize that Bookiza is not a replacement for frameworks used for building mobile web apps. There are a lot
 of great solutions that work well for websites, like [jQuery Mobile](http://jquerymobile.com/).
