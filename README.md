@@ -56,9 +56,25 @@ $ bookiza server
 ```
 Open `http://localhost:6000` on your browser to see your freshly minted book!
 
+## Features
 
-## Library
-Books created via Bookiza can be published directly to [Bubblin](https://bubbl.in) - our substrate platform for superbook readers. Bubblin is fully integrated with [Stripe Connect](https://stripe.com/connect) and supports payments in multiple countries. 
+  - Available everywhere, naturally hosted on Bubblin or on your own site. (Via a [spine_url](https://bubblin.github.io/))
+  - Responsive by default
+  - Beautiful flexible typography, @font-faces and a plethora of [templates]() to choose from
+  - Easier to maintain, no reflow headaches!
+  - Multi-Language & multi-platform 
+  - Full Cover 
+  - CDN compatibility 
+  - Full-bleed Magazine Imagery
+  - In-page JavaScript programming
+  - Any content, any mode: WebGL, Latex, Katex, Markdown or plain old HTML.
+  - Supported on all major devices and browsers
+      Searchable & Indexable
+      Comics & Animation support: white, sepia, night
+
+
+## The library
+Books created via Bookiza can be published directly on [Bubblin](https://bubbl.in) - our substrate platform for book lovers. Or  host it on your own website! Bubblin comes feature packed and pre-integrated with [Stripe Connect](https://stripe.com/connect). 
 
 Find a selection of *exclusive* and [handpicked books](https://bubbl.in/books) brought to you by our community of futurists. 
  
@@ -73,53 +89,22 @@ Find a selection of *exclusive* and [handpicked books](https://bubbl.in/books) b
 
 ## Authors
 
-Originally created by [Marvin Danig](http://twitter.com/marvindanig), Bookiza has seen hundreds of great [contributors](https://github.com/bookiza/bookiza/graphs/contributors) from around the world, including Bubblin Team Members [Veronica](http://bubbl.in/veronica), [Mike Hartington](http://twitter.com/mhartington), and [Tim Lancina](http://twitter.com/dopernicus).
+Originally created by [Marvin Danig](http://twitter.com/marvindanig), Bookiza has seen hundreds of [contributions](https://github.com/bookiza/bookiza/graphs/contributors) from around the world, including major ones from [Veronica](http://bubbl.in/veronica) and [Dave](https://bubbl.in/).
 
 ## Development
 
-* `npm install && npm install -g gulp protractor` to setup
-* (if you wish to run end-to-end tests): `webdriver-manager update --chrome` to install the webdriver.
-* `gulp` or `gulp build` to build
-* `gulp docs` to generate docs (read Documentation below for how to test docs locally).
-* `gulp build --release` to build with minification & strip debugs
-* `gulp watch` to watch and rebuild on change
-* `gulp karma` to test one-time
-* `gulp karma-watch` to test and re-run on source change
-* `gulp snapshot` to test e2e tests locally (run `gulp demos` first to generate e2e tests). Be sure to run `./node_modules/.bin/webdriver-manager update --chrome` to first install the chrome webdriver dependency.
 
 ### Documentation
 
-* Documentation is generated into `dist/Bookiza-site`.  To test documentation properly, follow these steps:
-  1. Clone Bookiza-site into `./dist/Bookiza-site`
-    - `git clone git@github.com:driftyco/Bookiza-site dist/Bookiza-site`
-  2. Start jekyll, telling it to rebuild whenever the site changes
-    - `cd dist/Bookiza-site && jekyll serve -w`
-  3. Go back to project root and build the docs
-    - `gulp docs [--doc-version=(versionName|nightly)]`
-  4. Open localhost:4000 and see your changes! Re-run `gulp docs` again whenever you change something, and jekyll will update the site
 
 ### Demos / Kitchen Sink
 
-* The demo site is generated into `dist/Bookiza-demo`. To test the demos, follow these steps:
-  1. Run `gulp demos [--demo-version=(versionName|nightly)]`
-  2. Start an http server from `dist/Bookiza-demo`:
-    - `cd dist/Bookiza-demo && python -m SimpleHTTPServer`
-  3. Navigate to `http://localhost:8000/{versionName|nightly}` and use the demos
-  4. Run `gulp demos` again whenever you change the demos
 
 ### Commit Conventions
 
-* Uses these [commit conventions](http://github.com/ajoslin/conventional-changelog)
 
 ### Pushing New Release of Bookiza
 
-- Almost all of the logic for releasing Bookiza is done on the Travis server
-- To push a new release:
-  1. Update package.json version to new version
-  2. Generate changelog with `gulp changelog`
-  3. Go through the changelog, and fix any mistakes or clarify any unclear commit messages
-  4. Commit package.json and CHANGELOG.md and push to master
-- Travis will detect that this commit changed the version in package.json and push out all necessary for this new release (tags, release files, site config, ...)
 
 ## LICENSE
 
