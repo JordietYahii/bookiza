@@ -1,17 +1,24 @@
 # Bookiza
 
-Cook your book like a pizza. Quick, beautiful and high quality. 
+Cook your book like a pizza. Quick, beautiful and *everywhere*. 
 
-The best place to start on Bookiza is page-19 of our [Official Handbook](https://bubbl.in/cover/official-handbook-by-marvin-danig).
+The best place to start on Bookiza is our [Official Handbook](https://bubbl.in/cover/official-handbook-by-marvin-danig).
 
-Superbooks written using Bookiza Framework are responsively supported on all devices with a modern browser. Though usually the best experience is on iPads(iOS 7+) and Android 5.0+ tablets because both mobiles & desktops (or TVs) aren't ideal for book reading. Here's a full list of [supported](https://bubbl.in/support) devices & platforms.
+
+## Support
+Superbooks written using Bookiza are [supported](https://bubbl.in/support) on all major devices, tablets and desktops. Even HDTVs! All it needs is a modern browser.
+
+Our current build yields best experience on iPads(iOS 7+) and Android 5.0+ tablets because, well, both mobiles & desktops (and TVs) aren't ideal an ideal situation for book readers.
 
 # What is Bookiza?
 
-Bookiza is an Open Source Book Writer's Framework that is designed to *press* and *publish* crazy beautiful, responsive, cross-platform ebooks using only the building-blocks of web: a.k.a. HTML, JavaScript and CSS. Our books look like books too, not some dumb website or a silly link to file that you have to download in exchange of email.
+Bookiza is an Open Source Book Writer's Framework that is designed to *optimize*, *press* and *publish* crazily beautiful, responsive, cross-platform ebooks using only the building-blocks of web: a.k.a. HTML, JavaScript and CSS. 
 
-See a ![demo](http://bubbl.in/cover/the-solar-system-by-marvin-danig)
+Our books look like books too, not some dumb website or a silly hyperlink to a petty file that people need to download in exchange of email.
 
+Read our ![demo book](http://bubbl.in/cover/the-solar-system-by-marvin-danig), for example.
+
+# Why this?
 We built Bookiza because we wanted to write books, all kinds of books, like they were an app. Use our existing development toolchain to mint books that lets us focus on the story manuscript as efficiently as a framework would for an app. We wanted this framework to be obsessive about great book design and performance. A framework that left the past behind and focused on the future where mobile devices could make HTML5 feel native.
 
 It's important to realize that Bookiza is not a replacement for frameworks used for building mobile web apps. There are a lot
