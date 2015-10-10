@@ -1,14 +1,14 @@
 # bookiza
 
-The best place to start with Bookiza is our [Official Handbook](https://bubbl.in/cover/official-handbook-by-marvin-danig).
+The best place to start on Bookiza is the [Official Handbook](https://bubbl.in/cover/official-handbook-by-marvin-danig).
 
-Bookiza currently works best on iOS 7+ and Android 4.1+. Here's a full list of [supported]() devices & platforms.
+Superbooks written using Bookiza are supported on all devices with a modern browser, though it's usually best experience to read books on iPads(iOS 7+) and Android 5.0+ tablets. Here's a full list of [supported](https://bubbl.in/support) devices & platforms.
 
 # What is Bookiza?
 
-Bookiza is an open source book Tooling Framework designed to help you create amazing, cross-platform superbooks using only the simplest building blocks of web i.e. HTML, JavaScript and CSS.
+Bookiza is an open source Book Writer's Framework designed to *hotpress* and *publish* crazily efficient, cross-platform ebooks using only the building-blocks of web i.e. HTML, JavaScript and CSS. Our books look like books too, not dull websites nor silly files that they ask you download in exchange of email.
 
-![Bubblin GUI](http://Bookizaframework.com/img/gui_screen.jpg)
+![Bookiza CLI](http://Bookizaframework.com/img/gui_screen.jpg)
 
 We built Bookiza because we wanted a book writing framework that focused on manuscript as efficiently as a framework would for an app. We wanted this framework to be obsessive about great book design and performance. A framework that left the past behind and focused on the future where mobile devices could make HTML5 feel native.
 
@@ -64,7 +64,7 @@ For most cases, you'll need AngularJS as well.  This is bundled in `js/angular/`
 
 ## Authors
 
-Originally created by [Adam Bradley](http://twitter.com/adamdbradley), [Ben Sperry](http://twitter.com/benjsperry), and [Max Lynch](http://twitter.com/maxlynch), Bookiza has seen hundreds of great [contributors](https://github.com/driftyco/Bookiza/graphs/contributors) from around the world, including Bookiza Team Members [Perry Govier](http://twitter.com/perrygovier), [Mike Hartington](http://twitter.com/mhartington), and [Tim Lancina](http://twitter.com/dopernicus).
+Originally created by [Marvin Danig](http://twitter.com/marvindanig), Bookiza has seen hundreds of great [contributors](https://github.com/bookiza/bookiza/graphs/contributors) from around the world, including Bubblin Team Members [Veronica](http://bubbl.in/veronica), [Mike Hartington](http://twitter.com/mhartington), and [Tim Lancina](http://twitter.com/dopernicus).
 
 ## Development
 

@@ -391,9 +391,8 @@ echo "
   $ bookiza remove [page_number] 
     Examples:    
       1. Removes page at [page_number]: 4, 17      (Must be integer)
+      2. And appends a blank page at the end of the book.
 "
-
-
 
 } 
 
