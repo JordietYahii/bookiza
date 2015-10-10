@@ -6,13 +6,13 @@ The best place to start on Bookiza is our [Official Handbook](https://bubbl.in/c
 
 
 ## Support
-Superbooks written using Bookiza are [supported](https://bubbl.in/support) on all major devices, tablets and desktops. Even HDTVs! All it needs is a modern browser.
+Superbooks written using Bookiza are [supported](https://bubbl.in/support) on every major device, tablet and desktop. Even HDTVs! All it needs is a modern browser.
 
 Our current build yields best experience on iPads(iOS 7+) and Android 5.0+ tablets because, well, both mobiles & desktops (and TVs) aren't ideal an ideal situation for book readers.
 
-# What is Bookiza?
+## What is Bookiza?
 
-Bookiza is an Open Source Book Writer's Framework that is designed to *optimize*, *press* and *publish* crazily beautiful, responsive, cross-platform ebooks using only the building-blocks of web: a.k.a. HTML, JavaScript and CSS. 
+Bookiza is an Open Source Book Writer's Framework that is designed to *simplify*, *press* and *publish* crazily beautiful, responsive and cross-platform ebooks using only the building-blocks of web: i.e. HTML, CSS and JS (Yeah JavaScript inside e-books. We got that for you!). 
 
 Our books look like books too, not some dumb website or a silly hyperlink to a petty file that people need to download in exchange of email.
 
