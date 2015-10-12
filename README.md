@@ -1,8 +1,8 @@
 # Bookiza
 
-Quick, beautiful books everywhere. Designer, flexible and responsive by default. 
+Quick, beautiful books. Responsive by default. 
 
-Bookiza is a book "baking tool" for the *young and restless*. It's only the one of its kind "development framework" that treats books, comics or magazine like they were apps. A single-page web app that scales and adapts to any device or desktop out there. 
+Bookiza is a book "baking tool" for the *young and restless* writers. A lightweight "development framework" that treats books, comics or magazine like it was an app. 
 
 The best place to start on Bookiza is our [Official Handbook](https://bubbl.in/cover/official-handbook-by-marvin-danig).
 
