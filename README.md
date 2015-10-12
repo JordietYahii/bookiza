@@ -1,9 +1,10 @@
 # Bookiza
 
-Cook your book like a pizza. Quick, beautiful and *everywhere*. 
+Quick, beautiful books everywhere. Designer, flexible and responsive by default. 
+
+Bookiza is a book "baking tool" for the *young and restless*. It's only the one of its kind "development framework" that treats books, comics or magazine like they were apps. A single-page web app that scales and adapts to any device or desktop out there. 
 
 The best place to start on Bookiza is our [Official Handbook](https://bubbl.in/cover/official-handbook-by-marvin-danig).
-
 
 ## Support
 Superbooks written using Bookiza are [supported](https://bubbl.in/support) on every major device, tablet and desktop. Even HDTVs! All it needs is a modern browser.
@@ -97,7 +98,7 @@ Originally created by [Marvin Danig](http://twitter.com/marvindanig), Bookiza ha
 ### Documentation
 
 
-### Demos / Kitchen Sink
+### Templates
 
 
 ### Commit Conventions
